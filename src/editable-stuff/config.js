@@ -6,22 +6,22 @@ const navBar = {
 // Main Body SECTION
 const mainBody = {
   gradientColors: "#4484ce, #1ad7c0, #ff9b11, #9b59b6, #ff7f7f, #ecf0f1",
-  firstName: "Nicolas",
-  middleName: "Ivan",
-  lastName: "Cridlig",
+  firstName: "Andrea",
+  middleName: "",
+  lastName: "Fossà",
   message: " Student in Artificial Intelligence ",
   icons: [
     {
       image: "fa-github",
-      url: "https://github.com/ncridlig",
+      url: "https://github.com/andrea-fs",
     },
     {
       image: "fa-instagram",
-      url: "https://www.instagram.com/nicocridlig/",
+      url: "https://www.instagram.com/andrea.xerf/",
     },
     {
       image: "fa-linkedin",
-      url: "https://www.linkedin.com/in/nicolas-cridlig-161451133/",
+      url: "https://www.linkedin.com/in/andreafossa1801/",
     },
   ],
 };
@@ -43,11 +43,12 @@ const mainBody = {
 const about = {
   show: true,
   heading: "About Me",
-  imageLink: require("../editable-stuff/nicolascridlig.png"),
-  imageSize: 375,
+  imageLink: require("../editable-stuff/profilepng.png"),
+  imageSize: 305,
   message:
-    "My name is Nicolas Ivan Cridlig. I will be a graduate in 2025 from University of Bologna in Italy with a masters degree in Artificial Intelligence. One of my passions is to speak all the Romance Languages.",
+    "My name is Andrea Fossà. I will be a graduate in 2025 from University of Bologna in Italy with a masters degree in Artificial Intelligence.",
   resume: process.env.PUBLIC_URL + "/resume.pdf",
+  secondResume: process.env.PUBLIC_URL + "/secondResume.pdf",
 };
 
 // PROJECTS SECTION
@@ -58,32 +59,59 @@ const about = {
 const repos = {
   show: true,
   heading: "Recent Projects",
-  gitHubUsername: "ncridlig", //i.e."johnDoe12Gh"
+  gitHubUsername: "andrea-fs", //i.e."johnDoe12Gh"
   reposLength: 4,
   specificRepos: [],
 };
 
 // Leadership SECTION
 const leadership = {
-  show: false,
-  heading: "Leadership",
+  show: true,
+  heading: "Frequently Asked Questions",
   message:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae auctor eu augue ut lectus arcu bibendum at varius. Libero justo laoreet sit amet cursus sit amet. Imperdiet dui accumsan sit amet nulla facilisi morbi. At auctor urna nunc id. Iaculis urna id volutpat lacus laoreet non curabitur gravida. Et magnis dis parturient montes nascetur ridiculus mus mauris. In nisl nisi scelerisque eu ultrices vitae auctor. Mattis nunc sed blandit libero volutpat sed cras ornare. Pulvinar neque laoreet suspendisse interdum consectetur libero.",
+  `What are you looking for?
+A: I am actively seeking internship opportunities in the field of
+Artificial Intelligence to gain practical experience and enhance my skills. 
+_____________________________________________________________
+Where are you located, and are you willing to relocate?
+A: I am currently based in Italy, but I am open to relocating for the right
+opportunities, including internships and job offers
+_____________________________________________________________
+What is your educational background?
+A: I am pursuing a master’s degree in Artificial Intelligence at the University of Bologna,
+ expected to graduate in 2025. I also hold a bachelor’s degree in Bioinformatics from the University of Verona,
+ where I developed a passive brain-computer interface (BCI) system for cognitive workload assessment.
+_____________________________________________________________
+What are your main areas of expertise?
+A: I have worked on several AI projects, including semantic segmentation of satellite images,
+ object detection, and optimizing courier planning problems with combinatorial decision-making techniques.
+ My bioinformatics projects include developing a passive BCI system to assess cognitive workload.
+_____________________________________________________________
+How do you stay up-to-date in the field? A:
+I stay current by regularly reading scientific papers, actively working on coding projects,
+ and engaging in discussions with peers and also professors.
+ This helps me maintain a broad and deep understanding of both cutting-edge research and practical applications.
+`,
   images: [
     { 
-      img: require("../editable-stuff/nicolascridlig.png"), 
-      label: "First slide label", 
-      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum." 
+      img: require("../editable-stuff/museum.png"), 
+      label: "Hobby", 
+      paragraph: "I love to visit mueum, like this one: ... " 
     },
     { 
-      img: require("../editable-stuff/nicolascridlig.png"), 
-      label: "Second slide label", 
-      paragraph: "Nulla vitae elit libero, a pharetra augue mollis interdum." 
+      img: require("../editable-stuff/lib.png"), 
+      label: "Studing", 
+      paragraph: "A really cool library 😊" 
+    },
+    { 
+      img: require("../editable-stuff/calcio.png"), 
+      label: "Football", 
+      paragraph: "I was full immersed 🙈 " 
     },
   ],
   imageSize: {
-    width:"615",
-    height:"450"
+    width:"115",
+    height:"750"
   }
 };
 
@@ -92,11 +120,13 @@ const skills = {
   show: true,
   heading: "Skills",
   hardSkills: [
-    { name: "French", value: 'Native' },
-    { name: "English", value: 'Native' },
-    { name: "Italian", value: 'B1' },
-    { name: "Coding", value: "Python, C++" },
-    { name: "Frameworks", value: "ROS2" },
+    { name: "English", value: 'B2' },
+    { name: "Italian", value: 'Native' },
+    { name: "Coding", value: "Python, C, MatLab, Constraint Programming, PyTorch, TensorFlow" },
+    { name: "Bioinformatics", value: "EEGLab, Bioinformatics Tools and Databases (UniProt, Protparam, PDB, Clustal Omega, BLAST), AlphaFold" },
+    { name: "Promote communication between people with different cultural backgrounds", value: "rk8OF-XJS3WniWiuwgf_Cg"},
+    { name: "Objective: Sustainable Development", value: "IlLBMjcoSB2IVUTx-A7lJg"},
+    { name: "Strategic problem solving patterns for better creativity", value: "fP1eQwjnTru_mZ_QFhOJ5Q"},
   ],
 };
 
@@ -106,7 +136,7 @@ const getInTouch = {
   heading: "Get In Touch",
   message:
     "I'm currently looking for full-time Artificial Intelligence opportunities! If you know of any positions available, if you have any questions, or if you just want to say hi, please feel free to email me at",
-  email: "ncridlig@gmail.com",
+  email: "andrea.fossa1801@gmail.com",
 };
 
 const experiences = {
@@ -114,46 +144,41 @@ const experiences = {
   heading: "Experiences",
   data: [
     {
-      role: 'Driverless AI Division Manager at UniBo Motorsport',
-      companylogo: require('../assets/img/ubm.png'),
-      date: 'January 2021 – April 2021',
+      role: 'BCI Research Intern',
+      companylogo: require('../assets/img/bnl.png'),
+      date: 'March 2023 – July 2023',
     },
     {
-      role: 'Data Scientist at Scripps Machine Listening Lab',
-      companylogo: require('../assets/img/smll.png'),
-      date: 'January 2021 – April 2021',
+      role: 'Bachelor students at University of Verona',
+      companylogo: require('../assets/img/univr.png'),
+      date: 'September 2020 – July 2023',
     },
     {
-      role: 'IT Supervisor at Scripps Institute of Oceanography',
-      companylogo: require('../assets/img/sio.png'),
-      date: 'October 2019 – December 2022',
+      role: 'Stage at Fabbrica Italaina Sintetici F.I.S.',
+      companylogo: require('../assets/img/fis.png'),
+      date: 'May 2018 – June 2018',
     },
     {
-      role: 'Marketing VP at Interfraternity Council',
-      companylogo: require('../assets/img/ifc.png'),
-      date: 'January 2021 – January 2022',
+      role: 'Labourer at Collis Wine Group',
+      companylogo: require('../assets/img/collis.png'),
+      date: 'August 2022 – October 2022',
     },
     {
-      role: 'Instructional Assistant at Jacobs School of Engineering',
-      companylogo: require('../assets/img/ucsd.png'),
-      date: 'January 2021 – April 2021',
+      role: 'Labourer at Albiero SRL',
+      companylogo: require('../assets/img/albiero.png'),
+      date: 'August 2020 – October 2020',
     },
     {
-      role: 'Fiesta Island Camp Counselor at Boy Scouts of America',
-      companylogo: require('../assets/img/bsa.png'),
-      date: 'July 2019 – August 2019',
-    },
-    {
-      role: 'Makers Club President at San Diego High School',
-      companylogo: require('../assets/img/sdhs.png'),
-      date: 'October 2017 – June 2019',
+      role: 'Football Player in First Team',
+      companylogo: require('../assets/img/real.png'),
+      date: 'Since elementary school :) – June 2022',
     },
   ]
 }
 
 // Blog SECTION
 const blog = {
-  show: true,
+  show: false,
   heading: "Blog",
 };
 

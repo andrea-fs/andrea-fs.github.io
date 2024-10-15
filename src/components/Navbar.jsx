@@ -82,6 +82,7 @@ const Navigation = React.forwardRef((props, ref) => {
               Skills
             </NavLink>
           )}
+          
           {blog.show && (
             <NavLink
               className="nav-item lead"
@@ -90,6 +91,7 @@ const Navigation = React.forwardRef((props, ref) => {
               Blog
             </NavLink>
           )}
+          
         </Nav>
       </Navbar.Collapse>
     </Navbar>
