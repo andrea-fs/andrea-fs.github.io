@@ -46,7 +46,7 @@ const about = {
   imageLink: require("../editable-stuff/profilepng.png"),
   imageSize: 305,
   message:
-    "My name is Andrea Fossà. I will be a graduate in 2025 from University of Bologna in Italy with a masters degree in Artificial Intelligence.",
+    "My name is Andrea Fossà. I will be a graduate in 2025 from the University of Bologna in Italy with a master's degree in Artificial Intelligence. In addition to my passion for AI, I am also deeply interested in history and geopolitics, which provide me with a broader understanding of global dynamics and how technology shapes the future.",
   resume: process.env.PUBLIC_URL + "/resume.pdf",
   secondResume: process.env.PUBLIC_URL + "/secondResume.pdf",
 };
@@ -79,8 +79,7 @@ opportunities, including internships and job offers
 _____________________________________________________________
 What is your educational background?
 A: I am pursuing a master’s degree in Artificial Intelligence at the University of Bologna,
- expected to graduate in 2025. I also hold a bachelor’s degree in Bioinformatics from the University of Verona,
- where I developed a passive brain-computer interface (BCI) system for cognitive workload assessment.
+ expected to graduate in 2025. I also hold a bachelor’s degree in Bioinformatics from the University of Verona.
 _____________________________________________________________
 What are your main areas of expertise?
 A: I have worked on several AI projects, including semantic segmentation of satellite images,
@@ -95,18 +94,18 @@ I stay current by regularly reading scientific papers, actively working on codin
   images: [
     { 
       img: require("../editable-stuff/museum.png"), 
-      label: "Hobby", 
-      paragraph: "I love to visit mueum, like this one: ... " 
+      label: "Travelling", 
+      paragraph: "I love to visit museum this was under the ara pacis in Rome" 
     },
     { 
       img: require("../editable-stuff/lib.png"), 
-      label: "Studing", 
-      paragraph: "A really cool library 😊" 
+      label: "Studying", 
+      paragraph: "If I have to choose a fav book it's 'l'impero dei draghi, Manfredi'" 
     },
     { 
       img: require("../editable-stuff/calcio.png"), 
       label: "Football", 
-      paragraph: "I was full immersed 🙈 " 
+      paragraph: "I also enjoy staying active through sports, which helps me maintain a healthy balance alongside my academic and personal interests. It’s a great way to recharge and stay focused." 
     },
   ],
   imageSize: {
@@ -171,7 +170,7 @@ const experiences = {
     {
       role: 'Football Player in First Team',
       companylogo: require('../assets/img/real.png'),
-      date: 'Since elementary school :) – June 2022',
+      date: 'Since elementary school – June 2022',
     },
   ]
 }

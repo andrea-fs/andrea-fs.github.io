@@ -5,7 +5,7 @@ import { Jumbotron } from "./migration";
 const Leadership = ({ heading, message, img, imageSize }) => {
   return (
     <Jumbotron
-      id="leadership"
+      id="faq"
       className="m-0"
       style={{ backgroundColor: "white" }}
     >

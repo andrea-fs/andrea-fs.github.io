@@ -83,6 +83,15 @@ const Navigation = React.forwardRef((props, ref) => {
             </NavLink>
           )}
           
+          {repos.show && (
+            <NavLink
+              className="nav-item lead"
+              href={process.env.PUBLIC_URL + "/#faq"}
+            >
+              F.A.Q.
+            </NavLink>
+          )}
+          
           {blog.show && (
             <NavLink
               className="nav-item lead"
