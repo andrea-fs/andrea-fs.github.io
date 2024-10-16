@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.b1a3edc1.css",
-    "main.js": "/static/js/main.9da0c53c.js",
+    "main.js": "/static/js/main.22aac347.js",
     "static/js/453.19c7e6ca.chunk.js": "/static/js/453.19c7e6ca.chunk.js",
-    "static/media/profilepng.png": "/static/media/profilepng.173c1cf0e14418e22fb8.png",
+    "static/media/profilepng.png": "/static/media/profilepng.a598ed91b0d57511e0f2.png",
     "static/media/lib.png": "/static/media/lib.d410f738c3a734d24590.png",
-    "static/media/calcio.png": "/static/media/calcio.e20f527a9f1ec920345f.png",
+    "static/media/calcio.png": "/static/media/calcio.845d8274ae8731b5c687.png",
     "static/media/museum.png": "/static/media/museum.be28d422ad1394110fc7.png",
     "static/media/real.png": "/static/media/real.a89dd187303945552332.png",
     "static/media/univr.png": "/static/media/univr.0da69c9809233e14da6f.png",
@@ -15,11 +15,11 @@
     "static/media/fis.png": "/static/media/fis.45d8a893a9ef8f3f0fcd.png",
     "index.html": "/index.html",
     "main.b1a3edc1.css.map": "/static/css/main.b1a3edc1.css.map",
-    "main.9da0c53c.js.map": "/static/js/main.9da0c53c.js.map",
+    "main.22aac347.js.map": "/static/js/main.22aac347.js.map",
     "453.19c7e6ca.chunk.js.map": "/static/js/453.19c7e6ca.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b1a3edc1.css",
-    "static/js/main.9da0c53c.js"
+    "static/js/main.22aac347.js"
   ]
 }
