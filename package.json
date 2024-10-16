@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
-    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -30,7 +29,7 @@
     "eject": "react-scripts eject",
     "custom-deploy": "node pages.js"
   },
-  "proxy": "http://localhost:3000", 
+  "proxy": "http://localhost:3000",
   "engines": {
     "npm": "^10.2.3",
     "node": "^20.10.0"
@@ -52,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.2.0"
   }
 }
