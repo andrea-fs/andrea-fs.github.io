@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrea Fossà - Portfolio</title>
-    <!-- Google Fonts - Inter (already in your CSS, but good to link explicitly) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Base styles and variables */
@@ -15,15 +14,16 @@
         }
 
         :root {
-            --primary-color: #8B4513; /* Saddle Brown */
-            --secondary-color: #A0522D; /* Sienna */
-            --accent-color: #816c4c; /* Beige */
-            --dark-brown: #654321; /* Dark Brown */
-            --light-brown: #D2B48C; /* Tan */
-            --bg-dark: #1A1611; /* Very Dark Brown */
-            --bg-light: #bbae85; /* Dark Brown */
-            --text-light: #F5F5DC; /* Beige */
-            --text-gray: #D2B48C; /* Tan for gray text */
+            --primary-color: #007BFF; /* A vibrant blue for primary elements */
+            --secondary-color: #FF6B6B; /* A warm coral for accents and highlights */
+            --accent-color: #2ECC71; /* A fresh green for secondary accents */
+            --dark-blue: #1A202C; /* Deep almost black-blue for dark backgrounds */
+            --light-gray-blue: #E0F2F7; /* Very light blue-gray for light backgrounds */
+            --bg-dark: #1A202C; /* Background dark (Deep Ocean) */
+            --bg-light: #F5F5F5; /* Background light (Off-white/light gray) */
+            --text-light: #F8F8F8; /* Light text (off-white) */
+            --text-dark: #333333; /* Dark text for light backgrounds */
+            --text-gray: #A0AEC0; /* Muted gray for secondary text */
             --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
@@ -63,7 +63,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 22, 17, 0.95); /* Semi-transparent dark brown background */
+            background: rgba(26, 32, 44, 0.95); /* Semi-transparent dark blue background */
             backdrop-filter: blur(10px); /* Frosted glass effect */
             z-index: 1000;
             padding: 1rem 0;
@@ -102,7 +102,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--light-brown);
+            color: var(--secondary-color);
         }
 
         .nav-links a::after {
@@ -127,7 +127,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--dark-blue) 100%); /* Adjusted gradient */
             padding-top: 80px; /* To account for fixed header */
         }
 
@@ -139,7 +139,7 @@
             right: 0;
             bottom: 0;
             /* Subtle geometric pattern for background */
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%238B4513" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23A0522D" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23007BFF" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23FF6B6B" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
             background-size: cover;
             opacity: 0.2; /* Make pattern subtle */
         }
@@ -187,12 +187,12 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); /* Shadow based on primary color */
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
         }
 
         .secondary-cta-button {
@@ -205,7 +205,7 @@
         .secondary-cta-button:hover {
             background: var(--primary-color);
             color: white;
-            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
         }
 
         /* Sections */
@@ -214,7 +214,16 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative; /* For fade-in animation */
+            background-color: var(--bg-light); /* Light background for content sections */
+            color: var(--text-dark); /* Dark text for light sections */
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
+        section:nth-of-type(even) {
+            background-color: var(--light-gray-blue); /* Slightly different light background for contrast */
+        }
+
 
         .section-title {
             text-align: center;
@@ -246,7 +255,7 @@
             color: white;
             margin: 0 auto;
             animation: float 3s ease-in-out infinite;
-            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
             overflow: hidden; /* Ensure image stays within circle */
         }
 
@@ -260,7 +269,7 @@
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-gray);
+            color: var(--text-dark); /* Use dark text color */
         }
 
         /* Skills Section */
@@ -277,25 +286,26 @@
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(139, 69, 19, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
+            border: 1px solid rgba(0, 123, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+            color: var(--text-dark);
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(117, 77, 44, 0.2);
-            border-color: var(--light-brown);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+            border-color: var(--primary-color);
         }
 
         .skill-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: var(--light-brown); /* Use light brown for icons */
+            color: var(--primary-color); /* Use primary color for icons */
         }
 
         .skill-card h3 {
             margin-bottom: 1rem;
-            color: var(--text-light);
+            color: var(--text-dark);
         }
 
         .skill-card p {
@@ -316,13 +326,14 @@
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(139, 69, 19, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
+            border: 1px solid rgba(0, 123, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+            color: var(--text-dark);
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
         }
 
         .project-image {
@@ -348,7 +359,7 @@
 
         .project-content h3 {
             margin-bottom: 0.75rem; /* Slightly less margin */
-            color: var(--text-light);
+            color: var(--text-dark);
         }
 
         .project-content p {
@@ -366,7 +377,7 @@
 
         .project-link { /* Re-added for GitHub project links */
             padding: 0.5rem 1rem;
-            background: rgba(139, 69, 19, 0.1);
+            background: rgba(0, 123, 255, 0.1);
             color: var(--primary-color);
             text-decoration: none;
             border-radius: 10px;
@@ -394,13 +405,14 @@
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(139, 69, 19, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            color: var(--text-dark);
         }
 
         .hobby-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
             border-color: var(--accent-color);
         }
 
@@ -412,7 +424,7 @@
 
         .hobby-card h3 {
             margin-bottom: 1rem;
-            color: var(--text-light);
+            color: var(--text-dark);
         }
 
         .hobby-card p {
@@ -440,14 +452,14 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-gray);
+            color: var(--text-dark);
             font-size: 1.1rem;
             text-decoration: none; /* Ensure links are not underlined */
             transition: color 0.3s ease;
         }
 
         .contact-item:hover {
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
 
         .contact-item span:first-child {
@@ -456,11 +468,11 @@
 
         /* Footer */
         footer {
-            background: var(--bg-light);
+            background: var(--dark-blue);
             text-align: center;
             padding: 2rem;
-            color: var(--text-gray);
-            border-top: 1px solid rgba(139, 69, 19, 0.1);
+            color: var(--text-light);
+            border-top: 1px solid rgba(0, 123, 255, 0.1);
             font-size: 0.9rem;
         }
 
@@ -541,9 +553,6 @@
             <p>Master Student in Artificial Intelligence & AI Research Intern</p>
             <div class="cta-buttons-container">
                 <a href="#contact" class="cta-button">Get In Touch</a>
-                <!-- New button for downloading Resume/CV -->
-                <!-- 1. Make sure your resume file (e.g., 'Andrea_Fossa_CV.pdf') is in the 'images' folder (or root) in your GitHub repository. -->
-                <!-- 2. Replace 'images/Andrea_Fossa_CV.pdf' with the actual path to your PDF file. -->
                 <a href="images/Andrea_Fossa_CV.pdf" download="Andrea_Fossa_CV.pdf" class="cta-button secondary-cta-button">Download Resume</a>
             </div>
         </div>
@@ -552,9 +561,6 @@
     <section id="about" class="fade-in">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <!-- To add your profile photo from the 'images' folder: -->
-            <!-- 1. Make sure your photo file (e.g., 'my_profile.jpg') is in the 'images' folder in your GitHub repository. -->
-            <!-- 2. Replace 'images/your_profile.jpg' with the actual path to your image. -->
             <div class="about-image">
                 <img src="images/my_profile.jpg" alt="Andrea Fossà Profile Picture">
             </div>
@@ -604,9 +610,7 @@
 
     <section id="projects" class="fade-in">
         <h2 class="section-title">My Projects</h2>
-        <!-- This div will be populated by JavaScript with your GitHub repositories -->
         <div id="github-projects-container" class="projects-grid">
-            <!-- Projects will be loaded here dynamically -->
             <p style="text-align: center; color: var(--text-gray);">Loading projects from GitHub...</p>
         </div>
     </section>
@@ -641,9 +645,9 @@
                     <span>📧</span>
                     <span>andrea.fossa1801@gmail.com</span>
                 </a>
-                <a href="tel:+393450778568" class="contact-item">
-                    <span>📱</span>
-                    <span>+39 3450778568</span>
+                <a href="mailto:andrea.fossa@studio.unibo.it" class="contact-item">
+                    <span>📧</span>
+                    <span>andrea.fossa@studio.unibo.it</span>
                 </a>
                 <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="contact-item">
                     <span>🌐</span>
@@ -698,9 +702,9 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(26, 22, 17, 0.98)';
+                header.style.background = 'rgba(26, 32, 44, 0.98)';
             } else {
-                header.style.background = 'rgba(26, 22, 17, 0.95)';
+                header.style.background = 'rgba(26, 32, 44, 0.95)';
             }
         });
 
@@ -745,8 +749,7 @@
 
                         projectCard.innerHTML = `
                             <div class="project-image">
-                                <!-- Clean gradient background without icon -->
-                            </div>
+                                </div>
                             <div class="project-content">
                                 <h3>${repo.name}</h3>
                                 <p>${repo.description || "No description provided."}</p>
