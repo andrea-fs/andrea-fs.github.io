@@ -326,20 +326,19 @@
 
         .project-image {
             height: 200px;
-            background: var(--gradient); /* Default gradient background */
+            background: var(--gradient); /* Default gradient background for project cards */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
             color: white;
-            background-size: cover; /* For actual images */
-            background-position: center;
+            overflow: hidden; /* Ensure image fits */
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Cover the area, cropping if necessary */
         }
 
         .project-content {
@@ -357,13 +356,14 @@
             font-size: 0.95rem;
         }
 
-        .project-links {
+        .project-links { /* Re-added for GitHub project links */
             display: flex;
             gap: 1rem;
             flex-wrap: wrap; /* Allow links to wrap on small screens */
+            margin-top: 1rem;
         }
 
-        .project-link {
+        .project-link { /* Re-added for GitHub project links */
             padding: 0.5rem 1rem;
             background: rgba(99, 102, 241, 0.1);
             color: var(--primary-color);
@@ -374,7 +374,7 @@
             font-size: 0.9rem; /* Smaller font for links */
         }
 
-        .project-link:hover {
+        .project-link:hover { /* Re-added for GitHub project links */
             background: var(--primary-color);
             color: white;
         }
@@ -561,63 +561,10 @@
 
     <section id="projects" class="fade-in">
         <h2 class="section-title">My Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <!-- To add a project image from the 'images' folder: -->
-                <!-- 1. Make sure your project image file (e.g., 'project_satellite.jpg') is in the 'images' folder. -->
-                <!-- 2. Replace 'images/project_satellite.jpg' with the actual path to your image. -->
-                <div class="project-image" style="background-image: url('images/project_satellite.jpg');">
-                    <!-- If you prefer to use an <img> tag directly inside, remove the style attribute from the div and uncomment the line below -->
-                    <!-- <img src="images/project_satellite.jpg" alt="Satellite Segmentation Project"> -->
-                </div>
-                <div class="project-content">
-                    <h3>Satellite Image Semantic Segmentation</h3>
-                    <p>Project focused on segmenting satellite images using deep learning techniques.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/yourusername/satellite-segmentation-repo" target="_blank" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_ai_scratch.jpg');"></div>
-                <div class="project-content">
-                    <h3>From Scratch AI</h3>
-                    <p>Development of AI models and algorithms from fundamental principles.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/yourusername/from-scratch-ai-repo" target="_blank" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_nlp_sexism.jpg');"></div>
-                <div class="project-content">
-                    <h3>NLP for Sexism Detection in Tweets</h3>
-                    <p>Applied NLP techniques and prompting strategies to detect sexism in social media data.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/yourusername/nlp-sexism-detection-repo" target="_blank" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_object_detection.jpg');"></div>
-                <div class="project-content">
-                    <h3>Detecting Objects: Classic and NN</h3>
-                    <p>Exploration of object detection methods, including classical approaches and neural networks.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/yourusername/object-detection-repo" target="_blank" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_courier_planning.jpg');"></div>
-                <div class="project-content">
-                    <h3>Combinatorial Decision Making and Optimization for Multiple Courier Planning</h3>
-                    <p>Solving complex logistical problems using combinatorial optimization for courier routes.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/yourusername/courier-planning-repo" target="_blank" class="project-link">GitHub</a>
-                    </div>
-                </div>
-            </div>
+        <!-- This div will be populated by JavaScript with your GitHub repositories -->
+        <div id="github-projects-container" class="projects-grid">
+            <!-- Projects will be loaded here dynamically -->
+            <p style="text-align: center; color: var(--text-gray);">Loading projects from GitHub...</p>
         </div>
     </section>
 
@@ -691,6 +638,71 @@
             } else {
                 header.style.background = 'rgba(15, 23, 42, 0.95)';
             }
+        });
+
+        // JavaScript to fetch and display GitHub repositories
+        document.addEventListener('DOMContentLoaded', function() {
+            const githubUsername = "andrea-fs"; // <-- IMPORTANT: Change this to your GitHub username!
+            const projectsContainer = document.getElementById("github-projects-container");
+
+            if (githubUsername === "andrea-fs" || githubUsername === "") {
+                projectsContainer.innerHTML = `
+                    <p style="text-align: center; color: var(--text-gray);">
+                        Please update the 'githubUsername' variable in the script with your actual GitHub username to load projects.
+                    </p>
+                `;
+                return; // Stop execution if username is not set
+            }
+
+            fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=6`) // Fetch up to 6 most recently updated repos
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(repos => {
+                    projectsContainer.innerHTML = ''; // Clear "Loading..." message
+                    if (repos.length === 0) {
+                        projectsContainer.innerHTML = `
+                            <p style="text-align: center; color: var(--text-gray);">
+                                No public repositories found for this user.
+                            </p>
+                        `;
+                        return;
+                    }
+
+                    repos.forEach(repo => {
+                        // Exclude forks if you only want your original projects
+                        // if (repo.fork) return;
+
+                        const projectCard = document.createElement("div");
+                        projectCard.className = "project-card"; // Apply existing project card styles
+
+                        projectCard.innerHTML = `
+                            <div class="project-image">
+                                <!-- Generic icon or gradient for projects. GitHub API does not provide images for repos. -->
+                                ⚙️
+                            </div>
+                            <div class="project-content">
+                                <h3>${repo.name}</h3>
+                                <p>${repo.description || "No description provided."}</p>
+                                <div class="project-links">
+                                    <a href="${repo.html_url}" target="_blank" class="project-link">View on GitHub</a>
+                                </div>
+                            </div>
+                        `;
+                        projectsContainer.appendChild(projectCard);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading GitHub repositories:", error);
+                    projectsContainer.innerHTML = `
+                        <p style="text-align: center; color: var(--text-gray);">
+                            Failed to load projects. Please check your GitHub username and internet connection.
+                        </p>
+                    `;
+                });
         });
     </script>
 </body>
