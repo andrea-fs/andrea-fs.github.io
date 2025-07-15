@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andrea Fossà - Portfolio</title>
+    <!-- Google Fonts - Inter (already in your CSS, but good to link explicitly) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Base styles and variables */
@@ -14,17 +15,23 @@
         }
 
         :root {
-            --primary-color: #007BFF; /* A vibrant blue for primary elements */
-            --secondary-color: #FF6B6B; /* A warm coral for accents and highlights */
-            --accent-color: #2ECC71; /* A fresh green for secondary accents */
-            --dark-blue: #1A202C; /* Deep almost black-blue for dark backgrounds */
-            --light-gray-blue: #E0F2F7; /* Very light blue-gray for light backgrounds */
-            --bg-dark: #1A202C; /* Background dark (Deep Ocean) */
-            --bg-light: #F5F5F5; /* Background light (Off-white/light gray) */
-            --text-light: #F8F8F8; /* Light text (off-white) */
-            --text-dark: #333333; /* Dark text for light backgrounds */
-            --text-gray: #A0AEC0; /* Muted gray for secondary text */
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            /* Nuova Palette Colori */
+            --color-one: #574964; /* Colore più scuro per sfondi principali (Viola scuro/Grigio) */
+            --color-two: #9F8383; /* Colore medio-scuro per sezioni (Marrone rosato) */
+            --color-three: #C8AAAA; /* Colore più chiaro per testo secondario (Grigio rosato) */
+            --color-four: #FFDAB3; /* Colore più chiaro per accenti e testo principale (Pesca chiaro) */
+
+            --primary-color: var(--color-four); /* Accento principale, il più chiaro */
+            --secondary-color: var(--color-three); /* Accento secondario */
+            --accent-color: var(--color-four); /* Colore per icone e dettagli, stesso del primary */
+
+            --bg-dark: var(--color-one); /* Sfondo generale scuro */
+            --bg-light: var(--color-two); /* Sfondo delle card all'interno delle sezioni (medio-scuro) */
+
+            --text-light: var(--color-four); /* Testo chiaro su sfondi scuri */
+            --text-gray: var(--color-three); /* Testo secondario chiaro */
+
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradiente con i nuovi colori */
         }
 
         body {
@@ -32,10 +39,10 @@
             background: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden; /* Impedisce lo scroll orizzontale */
         }
 
-        /* Animations */
+        /* Animazioni */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -63,8 +70,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 32, 44, 0.95); /* Semi-transparent dark blue background */
-            backdrop-filter: blur(10px); /* Frosted glass effect */
+            background: rgba(87, 73, 100, 0.95); /* Sfondo scuro semi-trasparente basato su color-one */
+            backdrop-filter: blur(10px); /* Effetto vetro smerigliato */
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
@@ -102,7 +109,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--secondary-color);
+            color: var(--primary-color); /* Colore al passaggio del mouse */
         }
 
         .nav-links a::after {
@@ -120,15 +127,15 @@
             width: 100%;
         }
 
-        /* Hero Section */
+        /* Sezione Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--dark-blue) 100%); /* Adjusted gradient */
-            padding-top: 80px; /* To account for fixed header */
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%); /* Gradiente per profondità */
+            padding-top: 80px; /* Per tenere conto dell'header fisso */
         }
 
         .hero::before {
@@ -138,17 +145,17 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Subtle geometric pattern for background */
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23007BFF" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23FF6B6B" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
+            /* Pattern geometrico sottile per lo sfondo */
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23FFDAB3" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23C8AAAA" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
             background-size: cover;
-            opacity: 0.2; /* Make pattern subtle */
+            opacity: 0.2; /* Rende il pattern sottile */
         }
 
         .hero-content {
             text-align: center;
             z-index: 1;
             animation: fadeInUp 1s ease-out;
-            padding: 0 1rem; /* Add padding for smaller screens */
+            padding: 0 1rem; /* Aggiunge padding per schermi più piccoli */
         }
 
         .hero h1 {
@@ -164,7 +171,7 @@
 
         .hero p {
             font-size: 1.5rem;
-            color: var(--text-gray);
+            color: var(--text-gray); /* Testo secondario chiaro */
             margin-bottom: 2rem;
             max-width: 600px;
             margin-left: auto;
@@ -174,54 +181,54 @@
         .cta-buttons-container {
             display: flex;
             justify-content: center;
-            gap: 1.5rem; /* Space between buttons */
-            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            gap: 1.5rem; /* Spazio tra i bottoni */
+            flex-wrap: wrap; /* Permette ai bottoni di andare a capo su schermi più piccoli */
         }
 
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
             background: var(--gradient);
-            color: white;
+            color: var(--color-one); /* Testo scuro sul bottone gradiente */
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3); /* Shadow based on primary color */
+            box-shadow: 0 10px 30px rgba(255, 218, 179, 0.3); /* Ombra basata su color-four */
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(255, 218, 179, 0.4);
         }
 
         .secondary-cta-button {
-            background: var(--bg-light); /* Different background for secondary button */
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
+            background: transparent; /* Sfondo trasparente */
+            border: 2px solid var(--text-light); /* Bordo con colore testo chiaro */
+            color: var(--text-light); /* Colore testo per bottone secondario */
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .secondary-cta-button:hover {
             background: var(--primary-color);
-            color: white;
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
+            color: var(--color-one); /* Testo scuro al passaggio del mouse */
+            box-shadow: 0 15px 40px rgba(255, 218, 179, 0.4);
         }
 
-        /* Sections */
+        /* Sezioni */
         section {
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative; /* For fade-in animation */
-            background-color: var(--bg-light); /* Light background for content sections */
-            color: var(--text-dark); /* Dark text for light sections */
+            position: relative; /* Per animazione fade-in */
+            background-color: var(--bg-dark); /* Sfondo scuro per le sezioni, come il body */
+            color: var(--text-light); /* Testo chiaro per sezioni scure */
             border-radius: 15px;
             margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Ombra più scura */
         }
         section:nth-of-type(even) {
-            background-color: var(--light-gray-blue); /* Slightly different light background for contrast */
+            background-color: var(--bg-dark); /* Tutte le sezioni avranno lo stesso sfondo scuro */
         }
 
 
@@ -235,7 +242,7 @@
             background-clip: text;
         }
 
-        /* About Section */
+        /* Sezione About */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -244,7 +251,7 @@
         }
 
         .about-image {
-            width: 250px; /* Slightly smaller */
+            width: 250px; /* Leggermente più piccolo */
             height: 250px;
             border-radius: 50%;
             background: var(--gradient);
@@ -252,105 +259,105 @@
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            color: white;
+            color: var(--color-one); /* Testo scuro sull'immagine */
             margin: 0 auto;
             animation: float 3s ease-in-out infinite;
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
-            overflow: hidden; /* Ensure image stays within circle */
+            box-shadow: 0 10px 20px rgba(255, 218, 179, 0.2);
+            overflow: hidden; /* Assicura che l'immagine rimanga all'interno del cerchio */
         }
 
         .about-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the circle */
+            object-fit: cover; /* Copre l'area, tagliando se necessario */
             border-radius: 50%;
         }
 
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-dark); /* Use dark text color */
+            color: var(--text-light); /* Colore testo chiaro */
         }
 
-        /* Skills Section */
+        /* Sezione Skills */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted min width */
-            gap: 1.5rem; /* Slightly smaller gap */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Larghezza minima adattata */
+            gap: 1.5rem; /* Spazio leggermente più piccolo */
             margin-top: 3rem;
         }
 
         .skill-card {
-            background: var(--bg-light);
+            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
             padding: 2rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 123, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
-            color: var(--text-dark);
+            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
+            color: var(--text-light); /* Testo chiaro */
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
             border-color: var(--primary-color);
         }
 
         .skill-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: var(--primary-color); /* Use primary color for icons */
+            color: var(--accent-color); /* Colore primario per le icone */
         }
 
         .skill-card h3 {
             margin-bottom: 1rem;
-            color: var(--text-dark);
+            color: var(--text-light); /* Testo chiaro */
         }
 
         .skill-card p {
-            color: var(--text-gray);
-            font-size: 0.95rem; /* Slightly smaller text */
+            color: var(--text-gray); /* Testo secondario chiaro */
+            font-size: 0.95rem; /* Testo leggermente più piccolo */
         }
 
-        /* Projects Section */
+        /* Sezione Projects */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted min width */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larghezza minima adattata */
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .project-card {
-            background: var(--bg-light);
+            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 123, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
-            color: var(--text-dark);
+            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
+            color: var(--text-light); /* Testo chiaro */
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
         }
 
         .project-image {
             height: 200px;
-            background: var(--gradient); /* Default gradient background for project cards */
+            background: var(--gradient); /* Sfondo gradiente predefinito per le card progetto */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: white;
-            overflow: hidden; /* Ensure image fits */
+            color: var(--color-one); /* Testo scuro sull'immagine */
+            overflow: hidden; /* Assicura che l'immagine si adatti */
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the area, cropping if necessary */
+            object-fit: cover; /* Copre l'area, tagliando se necessario */
         }
 
         .project-content {
@@ -358,40 +365,40 @@
         }
 
         .project-content h3 {
-            margin-bottom: 0.75rem; /* Slightly less margin */
-            color: var(--text-dark);
+            margin-bottom: 0.75rem; /* Margine leggermente inferiore */
+            color: var(--text-light); /* Testo chiaro */
         }
 
         .project-content p {
-            color: var(--text-gray);
-            margin-bottom: 1.25rem; /* Adjusted margin */
+            color: var(--text-gray); /* Testo secondario chiaro */
+            margin-bottom: 1.25rem; /* Margine adattato */
             font-size: 0.95rem;
         }
 
-        .project-links { /* Re-added for GitHub project links */
+        .project-links {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap; /* Allow links to wrap on small screens */
+            flex-wrap: wrap; /* Permette ai link di andare a capo su schermi piccoli */
             margin-top: 1rem;
         }
 
-        .project-link { /* Re-added for GitHub project links */
+        .project-link {
             padding: 0.5rem 1rem;
-            background: rgba(0, 123, 255, 0.1);
-            color: var(--primary-color);
+            background: rgba(255, 218, 179, 0.1); /* Sfondo trasparente chiaro */
+            color: var(--primary-color); /* Colore primario */
             text-decoration: none;
             border-radius: 10px;
             transition: all 0.3s ease;
-            border: 1px solid var(--primary-color);
-            font-size: 0.9rem; /* Smaller font for links */
+            border: 1px solid var(--primary-color); /* Bordo con colore primario */
+            font-size: 0.9rem; /* Font più piccolo per i link */
         }
 
-        .project-link:hover { /* Re-added for GitHub project links */
+        .project-link:hover {
             background: var(--primary-color);
-            color: white;
+            color: var(--color-one); /* Testo scuro al passaggio del mouse */
         }
 
-        /* Hobbies Section */
+        /* Sezione Hobbies */
         .hobbies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -400,19 +407,19 @@
         }
 
         .hobby-card {
-            background: var(--bg-light);
+            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
             padding: 2rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 123, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            color: var(--text-dark);
+            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: var(--text-light);
         }
 
         .hobby-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
             border-color: var(--accent-color);
         }
 
@@ -424,16 +431,16 @@
 
         .hobby-card h3 {
             margin-bottom: 1rem;
-            color: var(--text-dark);
+            color: var(--text-light);
         }
 
         .hobby-card p {
-            color: var(--text-gray);
+            color: var(--text-gray); /* Testo secondario chiaro */
             font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        /* Contact Section */
+        /* Sezione Contatti */
         .contact-content {
             text-align: center;
             max-width: 600px;
@@ -452,9 +459,9 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-dark);
+            color: var(--text-light); /* Testo chiaro */
             font-size: 1.1rem;
-            text-decoration: none; /* Ensure links are not underlined */
+            text-decoration: none; /* Assicura che i link non siano sottolineati */
             transition: color 0.3s ease;
         }
 
@@ -463,23 +470,23 @@
         }
 
         .contact-item span:first-child {
-            font-size: 1.5rem; /* Icon size */
+            font-size: 1.5rem; /* Dimensione icona */
         }
 
         /* Footer */
         footer {
-            background: var(--dark-blue);
+            background: var(--bg-dark);
             text-align: center;
             padding: 2rem;
             color: var(--text-light);
-            border-top: 1px solid rgba(0, 123, 255, 0.1);
+            border-top: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
             font-size: 0.9rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
-                display: none; /* Hide nav links on small screens */
+                display: none; /* Nasconde i link di navigazione su schermi piccoli */
             }
 
             .hero h1 {
@@ -500,7 +507,7 @@
             }
 
             .about-image {
-                width: 200px; /* Smaller image on mobile */
+                width: 200px; /* Immagine più piccola su mobile */
                 height: 200px;
             }
 
@@ -514,12 +521,12 @@
             }
 
             .cta-buttons-container {
-                flex-direction: column; /* Stack buttons vertically on small screens */
-                gap: 1rem; /* Adjust gap for stacked buttons */
+                flex-direction: column; /* Impila i bottoni verticalmente su schermi piccoli */
+                gap: 1rem; /* Regola lo spazio per i bottoni impilati */
             }
         }
 
-        /* Scroll animations */
+        /* Animazioni di scroll */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -649,6 +656,10 @@
                     <span>📧</span>
                     <span>andrea.fossa@studio.unibo.it</span>
                 </a>
+                <a href="tel:+393450778568" class="contact-item">
+                    <span>📱</span>
+                    <span>+39 3450778568</span>
+                </a>
                 <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="contact-item">
                     <span>🌐</span>
                     <span>LinkedIn Profile</span>
@@ -702,9 +713,9 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(26, 32, 44, 0.98)';
+                header.style.background = 'rgba(87, 73, 100, 0.98)'; /* Usa il nuovo sfondo scuro con opacità maggiore */
             } else {
-                header.style.background = 'rgba(26, 32, 44, 0.95)';
+                header.style.background = 'rgba(87, 73, 100, 0.95)'; /* Usa il nuovo sfondo scuro */
             }
         });
 
@@ -749,7 +760,9 @@
 
                         projectCard.innerHTML = `
                             <div class="project-image">
-                                </div>
+                                <!-- Generic icon or gradient for projects. GitHub API does not provide images for repos. -->
+                                ⚙️
+                            </div>
                             <div class="project-content">
                                 <h3>${repo.name}</h3>
                                 <p>${repo.description || "No description provided."}</p>
