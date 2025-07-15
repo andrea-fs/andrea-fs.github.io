@@ -26,7 +26,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
@@ -169,6 +169,13 @@
             margin-right: auto;
         }
 
+        .cta-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* Space between buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
@@ -185,6 +192,20 @@
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
         }
+
+        .secondary-cta-button {
+            background: var(--bg-light); /* Different background for secondary button */
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .secondary-cta-button:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
 
         /* Sections */
         section {
@@ -437,6 +458,11 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .cta-buttons-container {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                gap: 1rem; /* Adjust gap for stacked buttons */
+            }
         }
 
         /* Scroll animations */
@@ -470,18 +496,24 @@
         <div class="hero-content">
             <h1>Andrea Fossà</h1>
             <p>Master Student in Artificial Intelligence & AI Research Intern</p>
-            <a href="#contact" class="cta-button">Get In Touch</a>
+            <div class="cta-buttons-container">
+                <a href="#contact" class="cta-button">Get In Touch</a>
+                <!-- New button for downloading Resume/CV -->
+                <!-- 1. Make sure your resume file (e.g., 'Andrea_Fossa_CV.pdf') is in the 'images' folder (or root) in your GitHub repository. -->
+                <!-- 2. Replace 'images/Andrea_Fossa_CV.pdf' with the actual path to your PDF file. -->
+                <a href="images/Andrea_Fossa_CV.pdf" download="Andrea_Fossa_CV.pdf" class="cta-button secondary-cta-button">Download Resume</a>
+            </div>
         </div>
     </section>
 
     <section id="about" class="fade-in">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <!-- Placeholder for your photo. Replace with an actual URL if you have one. -->
-            <!-- For example: <div class="about-image"><img src="https://your-image-url.com/your-photo.jpg" alt="Andrea Fossà"></div> -->
+            <!-- To add your profile photo from the 'images' folder: -->
+            <!-- 1. Make sure your photo file (e.g., 'my_profile.jpg') is in the 'images' folder in your GitHub repository. -->
+            <!-- 2. Replace 'images/your_profile.jpg' with the actual path to your image. -->
             <div class="about-image">
-                <!-- Using an emoji as a placeholder, replace with your actual image -->
-                👨‍💻
+                <img src="images/your_profile.jpg" alt="Andrea Fossà Profile Picture">
             </div>
             <div class="about-text">
                 <p>Hello! I'm Andrea Fossà, a Master's student in Artificial Intelligence at the University of Bologna, currently an AI Research Intern at Fondazione Bruno Kessler (FBK E3DA Lab). My academic journey includes a BS in Bioinformatics from the University of Verona, where I achieved a GPA of 107/110.</p>
@@ -531,8 +563,13 @@
         <h2 class="section-title">My Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <!-- Project image placeholder. Replace with actual image if available. -->
-                <div class="project-image" style="background-image: url('https://placehold.co/600x400/6366f1/ffffff?text=Satellite+Segmentation');"></div>
+                <!-- To add a project image from the 'images' folder: -->
+                <!-- 1. Make sure your project image file (e.g., 'project_satellite.jpg') is in the 'images' folder. -->
+                <!-- 2. Replace 'images/project_satellite.jpg' with the actual path to your image. -->
+                <div class="project-image" style="background-image: url('images/project_satellite.jpg');">
+                    <!-- If you prefer to use an <img> tag directly inside, remove the style attribute from the div and uncomment the line below -->
+                    <!-- <img src="images/project_satellite.jpg" alt="Satellite Segmentation Project"> -->
+                </div>
                 <div class="project-content">
                     <h3>Satellite Image Semantic Segmentation</h3>
                     <p>Project focused on segmenting satellite images using deep learning techniques.</p>
@@ -542,7 +579,7 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image" style="background-image: url('https://placehold.co/600x400/8b5cf6/ffffff?text=From+Scratch+AI');"></div>
+                <div class="project-image" style="background-image: url('images/project_ai_scratch.jpg');"></div>
                 <div class="project-content">
                     <h3>From Scratch AI</h3>
                     <p>Development of AI models and algorithms from fundamental principles.</p>
@@ -552,7 +589,7 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image" style="background-image: url('https://placehold.co/600x400/06b6d4/ffffff?text=NLP+Sexism+Detection');"></div>
+                <div class="project-image" style="background-image: url('images/project_nlp_sexism.jpg');"></div>
                 <div class="project-content">
                     <h3>NLP for Sexism Detection in Tweets</h3>
                     <p>Applied NLP techniques and prompting strategies to detect sexism in social media data.</p>
@@ -562,7 +599,7 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image" style="background-image: url('https://placehold.co/600x400/6366f1/ffffff?text=Object+Detection');"></div>
+                <div class="project-image" style="background-image: url('images/project_object_detection.jpg');"></div>
                 <div class="project-content">
                     <h3>Detecting Objects: Classic and NN</h3>
                     <p>Exploration of object detection methods, including classical approaches and neural networks.</p>
@@ -572,7 +609,7 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image" style="background-image: url('https://placehold.co/600x400/8b5cf6/ffffff?text=Courier+Planning');"></div>
+                <div class="project-image" style="background-image: url('images/project_courier_planning.jpg');"></div>
                 <div class="project-content">
                     <h3>Combinatorial Decision Making and Optimization for Multiple Courier Planning</h3>
                     <p>Solving complex logistical problems using combinatorial optimization for courier routes.</p>
