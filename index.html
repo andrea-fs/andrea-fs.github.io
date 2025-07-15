@@ -16,14 +16,14 @@
 
         :root {
             /* Nuova Palette Colori */
-            --color-one: #5d5366; /* Colore più scuro per sfondi principali (Viola scuro/Grigio) */
-            --color-two: #9F8383; /* Colore medio-scuro per sezioni (Marrone rosato) */
-            --color-three: #C8AAAA; /* Colore più chiaro per testo secondario (Grigio rosato) */
-            --color-four: #FFDAB3; /* Colore più chiaro per accenti e testo principale (Pesca chiaro) */
+            --color-one: #604652; /* Sfondo principale / Testo scuro su accento */
+            --color-two: #735557; /* Sfondo sezioni / card */
+            --color-three: #97866A; /* Testo secondario / Accento secondario */
+            --color-four: #D29F80; /* Testo chiaro / Accento principale */
 
             --primary-color: var(--color-four); /* Accento principale, il più chiaro */
             --secondary-color: var(--color-three); /* Accento secondario */
-            --accent-color: var(--color-four); /* Colore per icone e dettagli, stesso del primary */
+            --accent-color: var(--color-three); /* Colore per icone e dettagli */
 
             --bg-dark: var(--color-one); /* Sfondo generale scuro */
             --bg-light: var(--color-two); /* Sfondo delle card all'interno delle sezioni (medio-scuro) */
@@ -70,7 +70,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(87, 73, 100, 0.95); /* Sfondo scuro semi-trasparente basato su color-one */
+            background: rgba(96, 70, 82, 0.95); /* Sfondo scuro semi-trasparente basato su color-one */
             backdrop-filter: blur(10px); /* Effetto vetro smerigliato */
             z-index: 1000;
             padding: 1rem 0;
@@ -146,7 +146,7 @@
             right: 0;
             bottom: 0;
             /* Pattern geometrico sottile per lo sfondo */
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23FFDAB3" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23C8AAAA" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23D29F80" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%2397866A" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
             background-size: cover;
             opacity: 0.2; /* Rende il pattern sottile */
         }
@@ -194,12 +194,12 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 218, 179, 0.3); /* Ombra basata su color-four */
+            box-shadow: 0 10px 30px rgba(210, 159, 128, 0.3); /* Ombra basata su color-four */
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 218, 179, 0.4);
+            box-shadow: 0 15px 40px rgba(210, 159, 128, 0.4);
         }
 
         .secondary-cta-button {
@@ -212,7 +212,7 @@
         .secondary-cta-button:hover {
             background: var(--primary-color);
             color: var(--color-one); /* Testo scuro al passaggio del mouse */
-            box-shadow: 0 15px 40px rgba(255, 218, 179, 0.4);
+            box-shadow: 0 15px 40px rgba(210, 159, 128, 0.4);
         }
 
         /* Sezioni */
@@ -262,7 +262,7 @@
             color: var(--color-one); /* Testo scuro sull'immagine */
             margin: 0 auto;
             animation: float 3s ease-in-out infinite;
-            box-shadow: 0 10px 20px rgba(255, 218, 179, 0.2);
+            box-shadow: 0 10px 20px rgba(210, 159, 128, 0.2);
             overflow: hidden; /* Assicura che l'immagine rimanga all'interno del cerchio */
         }
 
@@ -293,21 +293,21 @@
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
             color: var(--text-light); /* Testo chiaro */
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
+            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
             border-color: var(--primary-color);
         }
 
         .skill-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: var(--accent-color); /* Colore primario per le icone */
+            color: var(--accent-color); /* Colore accento per le icone */
         }
 
         .skill-card h3 {
@@ -333,14 +333,14 @@
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
             color: var(--text-light); /* Testo chiaro */
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
+            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
         }
 
         .project-image {
@@ -384,7 +384,7 @@
 
         .project-link {
             padding: 0.5rem 1rem;
-            background: rgba(255, 218, 179, 0.1); /* Sfondo trasparente chiaro */
+            background: rgba(210, 159, 128, 0.1); /* Sfondo trasparente chiaro */
             color: var(--primary-color); /* Colore primario */
             text-decoration: none;
             border-radius: 10px;
@@ -412,14 +412,14 @@
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             color: var(--text-light);
         }
 
         .hobby-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(255, 218, 179, 0.2);
+            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
             border-color: var(--accent-color);
         }
 
@@ -479,7 +479,7 @@
             text-align: center;
             padding: 2rem;
             color: var(--text-light);
-            border-top: 1px solid rgba(255, 218, 179, 0.1); /* Bordo trasparente chiaro */
+            border-top: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
             font-size: 0.9rem;
         }
 
@@ -713,9 +713,9 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(87, 73, 100, 0.98)'; /* Usa il nuovo sfondo scuro con opacità maggiore */
+                header.style.background = 'rgba(96, 70, 82, 0.98)'; /* Usa il nuovo sfondo scuro con opacità maggiore */
             } else {
-                header.style.background = 'rgba(87, 73, 100, 0.95)'; /* Usa il nuovo sfondo scuro */
+                header.style.background = 'rgba(96, 70, 82, 0.95)'; /* Usa il nuovo sfondo scuro */
             }
         });
 
