@@ -15,23 +15,15 @@
         }
 
         :root {
-            /* Nuova Palette Colori */
-            --color-one: #604652; /* Sfondo principale / Testo scuro su accento */
-            --color-two: #735557; /* Sfondo sezioni / card */
-            --color-three: #97866A; /* Testo secondario / Accento secondario */
-            --color-four: #D29F80; /* Testo chiaro / Accento principale */
-
-            --primary-color: var(--color-four); /* Accento principale, il più chiaro */
-            --secondary-color: var(--color-three); /* Accento secondario */
-            --accent-color: var(--color-three); /* Colore per icone e dettagli */
-
-            --bg-dark: var(--color-one); /* Sfondo generale scuro */
-            --bg-light: var(--color-two); /* Sfondo delle card all'interno delle sezioni (medio-scuro) */
-
-            --text-light: var(--color-four); /* Testo chiaro su sfondi scuri */
-            --text-gray: var(--color-three); /* Testo secondario chiaro */
-
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradiente con i nuovi colori */
+            /* Palette Colori Originale (Blu/Viola) */
+            --primary-color: #6366f1; /* Indigo 600 */
+            --secondary-color: #8b5cf6; /* Purple 500 */
+            --accent-color: #06b6d4; /* Cyan 600 */
+            --bg-dark: #0f172a; /* Slate 900 */
+            --bg-light: #1e293b; /* Slate 800 */
+            --text-light: #f8fafc; /* White */
+            --text-gray: #94a3b8; /* Slate 400 */
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
         body {
@@ -39,10 +31,10 @@
             background: var(--bg-dark);
             color: var(--text-light);
             line-height: 1.6;
-            overflow-x: hidden; /* Impedisce lo scroll orizzontale */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* Animazioni */
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -70,8 +62,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(96, 70, 82, 0.95); /* Sfondo scuro semi-trasparente basato su color-one */
-            backdrop-filter: blur(10px); /* Effetto vetro smerigliato */
+            background: rgba(15, 23, 42, 0.95); /* Semi-transparent dark background */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
@@ -109,7 +101,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--primary-color); /* Colore al passaggio del mouse */
+            color: var(--primary-color);
         }
 
         .nav-links a::after {
@@ -127,15 +119,15 @@
             width: 100%;
         }
 
-        /* Sezione Hero */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%); /* Gradiente per profondità */
-            padding-top: 80px; /* Per tenere conto dell'header fisso */
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            padding-top: 80px; /* To account for fixed header */
         }
 
         .hero::before {
@@ -145,17 +137,17 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Pattern geometrico sottile per lo sfondo */
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23D29F80" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%2397866A" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
+            /* Subtle geometric pattern for background */
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%236366f1" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%238b5cf6" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
             background-size: cover;
-            opacity: 0.2; /* Rende il pattern sottile */
+            opacity: 0.2; /* Make pattern subtle */
         }
 
         .hero-content {
             text-align: center;
             z-index: 1;
             animation: fadeInUp 1s ease-out;
-            padding: 0 1rem; /* Aggiunge padding per schermi più piccoli */
+            padding: 0 1rem; /* Add padding for smaller screens */
         }
 
         .hero h1 {
@@ -171,7 +163,7 @@
 
         .hero p {
             font-size: 1.5rem;
-            color: var(--text-gray); /* Testo secondario chiaro */
+            color: var(--text-gray);
             margin-bottom: 2rem;
             max-width: 600px;
             margin-left: auto;
@@ -181,46 +173,47 @@
         .cta-buttons-container {
             display: flex;
             justify-content: center;
-            gap: 1.5rem; /* Spazio tra i bottoni */
-            flex-wrap: wrap; /* Permette ai bottoni di andare a capo su schermi più piccoli */
+            gap: 1.5rem; /* Space between buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
         }
 
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
             background: var(--gradient);
-            color: var(--color-one); /* Testo scuro sul bottone gradiente */
+            color: white; /* Testo bianco sul bottone gradiente */
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(210, 159, 128, 0.3); /* Ombra basata su color-four */
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(210, 159, 128, 0.4);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
         }
 
         .secondary-cta-button {
-            background: transparent; /* Sfondo trasparente */
-            border: 2px solid var(--text-light); /* Bordo con colore testo chiaro */
-            color: var(--text-light); /* Colore testo per bottone secondario */
+            background: var(--bg-light); /* Sfondo diverso per bottone secondario */
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .secondary-cta-button:hover {
             background: var(--primary-color);
-            color: var(--color-one); /* Testo scuro al passaggio del mouse */
-            box-shadow: 0 15px 40px rgba(210, 159, 128, 0.4);
+            color: white;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
         }
 
-        /* Sezioni */
+
+        /* Sections */
         section {
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative; /* Per animazione fade-in */
+            position: relative; /* For fade-in animation */
             background-color: var(--bg-dark); /* Sfondo scuro per le sezioni, come il body */
             color: var(--text-light); /* Testo chiaro per sezioni scure */
             border-radius: 15px;
@@ -242,7 +235,7 @@
             background-clip: text;
         }
 
-        /* Sezione About */
+        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -251,7 +244,7 @@
         }
 
         .about-image {
-            width: 250px; /* Leggermente più piccolo */
+            width: 250px; /* Slightly smaller */
             height: 250px;
             border-radius: 50%;
             background: var(--gradient);
@@ -259,105 +252,106 @@
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            color: var(--color-one); /* Testo scuro sull'immagine */
+            color: white; /* Testo bianco sull'immagine */
             margin: 0 auto;
             animation: float 3s ease-in-out infinite;
-            box-shadow: 0 10px 20px rgba(210, 159, 128, 0.2);
-            overflow: hidden; /* Assicura che l'immagine rimanga all'interno del cerchio */
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+            overflow: hidden; /* Ensure image stays within circle */
         }
 
         .about-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Copre l'area, tagliando se necessario */
+            object-fit: cover; /* Cover the circle */
             border-radius: 50%;
         }
 
         .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-light); /* Colore testo chiaro */
+            color: var(--text-light); /* Testo chiaro */
         }
 
-        /* Sezione Skills */
+        /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Larghezza minima adattata */
-            gap: 1.5rem; /* Spazio leggermente più piccolo */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted min width */
+            gap: 1.5rem; /* Slightly smaller gap */
             margin-top: 3rem;
         }
 
         .skill-card {
-            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
+            background: var(--bg-light); /* Sfondo chiaro per le card */
             padding: 2rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
             color: var(--text-light); /* Testo chiaro */
         }
 
         .skill-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
             border-color: var(--primary-color);
         }
 
         .skill-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: var(--accent-color); /* Colore accento per le icone */
+            color: var(--accent-color); /* Use accent color for icons */
         }
 
         .skill-card h3 {
             margin-bottom: 1rem;
-            color: var(--text-light); /* Testo chiaro */
+            color: var(--text-light);
         }
 
         .skill-card p {
-            color: var(--text-gray); /* Testo secondario chiaro */
-            font-size: 0.95rem; /* Testo leggermente più piccolo */
+            color: var(--text-gray);
+            font-size: 0.95rem; /* Slightly smaller text */
         }
 
-        /* Sezione Projects */
+        /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Larghezza minima adattata */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted min width */
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .project-card {
-            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
+            background: var(--bg-light); /* Sfondo chiaro per le card */
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Ombra più scura */
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
             color: var(--text-light); /* Testo chiaro */
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
         }
 
         .project-image {
             height: 200px;
-            background: var(--gradient); /* Sfondo gradiente predefinito per le card progetto */
+            background: var(--gradient); /* Default gradient background */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: var(--color-one); /* Testo scuro sull'immagine */
-            overflow: hidden; /* Assicura che l'immagine si adatti */
+            color: white;
+            background-size: cover; /* For actual images */
+            background-position: center;
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Copre l'area, tagliando se necessario */
+            object-fit: cover;
         }
 
         .project-content {
@@ -365,40 +359,39 @@
         }
 
         .project-content h3 {
-            margin-bottom: 0.75rem; /* Margine leggermente inferiore */
-            color: var(--text-light); /* Testo chiaro */
+            margin-bottom: 0.75rem; /* Slightly less margin */
+            color: var(--text-light);
         }
 
         .project-content p {
-            color: var(--text-gray); /* Testo secondario chiaro */
-            margin-bottom: 1.25rem; /* Margine adattato */
+            color: var(--text-gray);
+            margin-bottom: 1.25rem; /* Adjusted margin */
             font-size: 0.95rem;
         }
 
         .project-links {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap; /* Permette ai link di andare a capo su schermi piccoli */
-            margin-top: 1rem;
+            flex-wrap: wrap; /* Allow links to wrap on small screens */
         }
 
         .project-link {
             padding: 0.5rem 1rem;
-            background: rgba(210, 159, 128, 0.1); /* Sfondo trasparente chiaro */
-            color: var(--primary-color); /* Colore primario */
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-color);
             text-decoration: none;
             border-radius: 10px;
             transition: all 0.3s ease;
-            border: 1px solid var(--primary-color); /* Bordo con colore primario */
-            font-size: 0.9rem; /* Font più piccolo per i link */
+            border: 1px solid var(--primary-color);
+            font-size: 0.9rem; /* Smaller font for links */
         }
 
         .project-link:hover {
             background: var(--primary-color);
-            color: var(--color-one); /* Testo scuro al passaggio del mouse */
+            color: white;
         }
 
-        /* Sezione Hobbies */
+        /* Hobbies Section */
         .hobbies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -407,19 +400,19 @@
         }
 
         .hobby-card {
-            background: var(--bg-light); /* Sfondo medio-scuro per le card (color-two) */
+            background: var(--bg-light); /* Sfondo chiaro per le card */
             padding: 2rem;
             border-radius: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
+            border: 1px solid rgba(99, 102, 241, 0.1);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             color: var(--text-light);
         }
 
         .hobby-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(210, 159, 128, 0.2);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
             border-color: var(--accent-color);
         }
 
@@ -435,12 +428,12 @@
         }
 
         .hobby-card p {
-            color: var(--text-gray); /* Testo secondario chiaro */
+            color: var(--text-gray);
             font-size: 0.95rem;
             line-height: 1.6;
         }
 
-        /* Sezione Contatti */
+        /* Contact Section */
         .contact-content {
             text-align: center;
             max-width: 600px;
@@ -461,7 +454,7 @@
             gap: 0.5rem;
             color: var(--text-light); /* Testo chiaro */
             font-size: 1.1rem;
-            text-decoration: none; /* Assicura che i link non siano sottolineati */
+            text-decoration: none; /* Ensure links are not underlined */
             transition: color 0.3s ease;
         }
 
@@ -470,23 +463,23 @@
         }
 
         .contact-item span:first-child {
-            font-size: 1.5rem; /* Dimensione icona */
+            font-size: 1.5rem; /* Icon size */
         }
 
         /* Footer */
         footer {
-            background: var(--bg-dark);
+            background: var(--bg-light); /* Sfondo chiaro per il footer, come nel codice di riferimento */
             text-align: center;
             padding: 2rem;
-            color: var(--text-light);
-            border-top: 1px solid rgba(210, 159, 128, 0.1); /* Bordo trasparente chiaro */
+            color: var(--text-gray);
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
             font-size: 0.9rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
-                display: none; /* Nasconde i link di navigazione su schermi piccoli */
+                display: none; /* Hide nav links on small screens */
             }
 
             .hero h1 {
@@ -507,7 +500,7 @@
             }
 
             .about-image {
-                width: 200px; /* Immagine più piccola su mobile */
+                width: 200px; /* Smaller image on mobile */
                 height: 200px;
             }
 
@@ -521,12 +514,12 @@
             }
 
             .cta-buttons-container {
-                flex-direction: column; /* Impila i bottoni verticalmente su schermi piccoli */
-                gap: 1rem; /* Regola lo spazio per i bottoni impilati */
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                gap: 1rem; /* Adjust gap for stacked buttons */
             }
         }
 
-        /* Animazioni di scroll */
+        /* Scroll animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -617,8 +610,63 @@
 
     <section id="projects" class="fade-in">
         <h2 class="section-title">My Projects</h2>
-        <div id="github-projects-container" class="projects-grid">
-            <p style="text-align: center; color: var(--text-gray);">Loading projects from GitHub...</p>
+        <div class="projects-grid">
+            <div class="project-card">
+                <!-- To add a project image from the 'images' folder: -->
+                <!-- 1. Make sure your project image file (e.g., 'project_satellite.jpg') is in the 'images' folder. -->
+                <!-- 2. Replace 'images/project_satellite.jpg' with the actual path to your image. -->
+                <div class="project-image" style="background-image: url('images/project_satellite.jpg');">
+                    <!-- If you prefer to use an <img> tag directly inside, remove the style attribute from the div and uncomment the line below -->
+                    <!-- <img src="images/project_satellite.jpg" alt="Satellite Segmentation Project"> -->
+                </div>
+                <div class="project-content">
+                    <h3>Satellite Image Semantic Segmentation</h3>
+                    <p>Project focused on segmenting satellite images using deep learning techniques.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/andrea-fs/DL_satellite_image_segmentation" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/project_ai_scratch.jpg');"></div>
+                <div class="project-content">
+                    <h3>From Scratch AI</h3>
+                    <p>Development of AI models and algorithms from fundamental principles.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/andrea-fs/Statistics_and_math_AI" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/project_nlp_sexism.jpg');"></div>
+                <div class="project-content">
+                    <h3>NLP for Sexism Detection in Tweets</h3>
+                    <p>Applied NLP techniques and prompting strategies to detect sexism in social media data.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/sangioai/NLP_Assignments" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/project_object_detection.jpg');"></div>
+                <div class="project-content">
+                    <h3>Detecting Objects: Classic and NN</h3>
+                    <p>Exploration of object detection methods, including classical approaches and neural networks.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/andrea-fs/IPVC_Assignment" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background-image: url('images/project_courier_planning.jpg');"></div>
+                <div class="project-content">
+                    <h3>Combinatorial Decision Making and Optimization for Multiple Courier Planning</h3>
+                    <p>Solving complex logistical problems using combinatorial optimization for courier routes.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/andrea-fs/CDMO_ProjectWork" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -709,9 +757,9 @@
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(96, 70, 82, 0.98)'; /* Usa il nuovo sfondo scuro con opacità maggiore */
+                header.style.background = 'rgba(15, 23, 42, 0.98)';
             } else {
-                header.style.background = 'rgba(96, 70, 82, 0.95)'; /* Usa il nuovo sfondo scuro */
+                header.style.background = 'rgba(15, 23, 42, 0.95)';
             }
         });
 
