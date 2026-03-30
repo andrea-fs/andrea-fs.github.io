@@ -3,830 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrea Fossà - Portfolio</title>
-    <!-- Google Fonts - Inter (already in your CSS, but good to link explicitly) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Base styles and variables */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Palette Colori Originale (Blu/Viola) */
-            --primary-color: #6366f1; /* Indigo 600 */
-            --secondary-color: #8b5cf6; /* Purple 500 */
-            --accent-color: #06b6d4; /* Cyan 600 */
-            --bg-dark: #0f172a; /* Slate 900 */
-            --bg-light: #1e293b; /* Slate 800 */
-            --text-light: #f8fafc; /* White */
-            --text-gray: #94a3b8; /* Slate 400 */
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.95); /* Semi-transparent dark background */
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--gradient);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
-            padding-top: 80px; /* To account for fixed header */
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Subtle geometric pattern for background */
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%236366f1" fill-opacity="0.05" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%238b5cf6" fill-opacity="0.03" points="0,300 1000,0 1000,700 0,1000"/></svg>');
-            background-size: cover;
-            opacity: 0.2; /* Make pattern subtle */
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 1;
-            animation: fadeInUp 1s ease-out;
-            padding: 0 1rem; /* Add padding for smaller screens */
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 200% 200%;
-            animation: gradient 3s ease infinite;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem; /* Space between buttons */
-            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--gradient);
-            color: white; /* Testo bianco sul bottone gradiente */
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
-        }
-
-        .secondary-cta-button {
-            background: var(--bg-light); /* Sfondo diverso per bottone secondario */
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .secondary-cta-button:hover {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
-        }
-
-
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative; /* For fade-in animation */
-            background-color: var(--bg-dark); /* Sfondo scuro per le sezioni, come il body */
-            color: var(--text-light); /* Testo chiaro per sezioni scure */
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Ombra più scura */
-        }
-        section:nth-of-type(even) {
-            background-color: var(--bg-dark); /* Tutte le sezioni avranno lo stesso sfondo scuro */
-        }
-
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-image {
-            width: 250px; /* Slightly smaller */
-            height: 250px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white; /* Testo bianco sull'immagine */
-            margin: 0 auto;
-            animation: float 3s ease-in-out infinite;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
-            overflow: hidden; /* Ensure image stays within circle */
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Cover the circle */
-            border-radius: 50%;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-light); /* Testo chiaro */
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted min width */
-            gap: 1.5rem; /* Slightly smaller gap */
-            margin-top: 3rem;
-        }
-
-        .skill-card {
-            background: var(--bg-light); /* Sfondo chiaro per le card */
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
-            color: var(--text-light); /* Testo chiaro */
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color); /* Use accent color for icons */
-        }
-
-        .skill-card h3 {
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .skill-card p {
-            color: var(--text-gray);
-            font-size: 0.95rem; /* Slightly smaller text */
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted min width */
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: var(--bg-light); /* Sfondo chiaro per le card */
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Subtle shadow */
-            color: var(--text-light); /* Testo chiaro */
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-        }
-
-        .project-image {
-            height: 200px;
-            background: var(--gradient); /* Default gradient background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-            background-size: cover; /* For actual images */
-            background-position: center;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-content h3 {
-            margin-bottom: 0.75rem; /* Slightly less margin */
-            color: var(--text-light);
-        }
-
-        .project-content p {
-            color: var(--text-gray);
-            margin-bottom: 1.25rem; /* Adjusted margin */
-            font-size: 0.95rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap; /* Allow links to wrap on small screens */
-        }
-
-        .project-link {
-            padding: 0.5rem 1rem;
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--primary-color);
-            font-size: 0.9rem; /* Smaller font for links */
-        }
-
-        .project-link:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* Hobbies Section */
-        .hobbies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .hobby-card {
-            background: var(--bg-light); /* Sfondo chiaro per le card */
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            color: var(--text-light);
-        }
-
-        .hobby-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-            border-color: var(--accent-color);
-        }
-
-        .hobby-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        .hobby-card h3 {
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .hobby-card p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-light); /* Testo chiaro */
-            font-size: 1.1rem;
-            text-decoration: none; /* Ensure links are not underlined */
-            transition: color 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: var(--primary-color);
-        }
-
-        .contact-item span:first-child {
-            font-size: 1.5rem; /* Icon size */
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-light); /* Sfondo chiaro per il footer, come nel codice di riferimento */
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-gray);
-            border-top: 1px solid rgba(99, 102, 241, 0.1);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Hide nav links on small screens */
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .about-image {
-                width: 200px; /* Smaller image on mobile */
-                height: 200px;
-            }
-
-            .skills-grid, .projects-grid, .hobbies-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-buttons-container {
-                flex-direction: column; /* Stack buttons vertically on small screens */
-                gap: 1rem; /* Adjust gap for stacked buttons */
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <title>Andrea Fossà — AI Engineer</title>
+    <meta name="description" content="Andrea Fossà — AI Engineer specialising in signal processing, deep learning, and satellite imagery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+
+    <!-- ===================== HEADER ===================== -->
+    <header id="header">
         <nav>
-            <div class="logo">Andrea Fossà</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+            <a href="#home" class="logo">AF<span class="logo-dot">.</span></a>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#hobbies">Hobbies</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#publications">Publications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </nav>
     </header>
 
+    <!-- ===================== HERO ===================== -->
     <section id="home" class="hero">
+        <!-- Decorative blobs -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="grain"></div>
+
         <div class="hero-content">
-            <h1>Andrea Fossà</h1>
-            <p>Master Student in Artificial Intelligence & AI Research Intern</p>
-            <div class="cta-buttons-container">
-                <a href="#contact" class="cta-button">Get In Touch</a>
-                <a href="images/CV_AF.pdf" download="Andrea_Fossa_CV.pdf" class="cta-button secondary-cta-button">Download Resume</a>
+            <div class="hero-badge">AI Engineer</div>
+            <h1 class="hero-name">Andrea<br>Foss&agrave;</h1>
+            <p class="hero-tagline">Signal Processing <span class="dot">&bull;</span> Satellite & Embedded Systems</p>
+            <p class="hero-desc">Building real-time deep learning pipelines for resource-constrained hardware, multi-channel time-series signals, and satellite imagery.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Get in Touch</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#projects" class="btn btn-ghost">View Projects</a>
             </div>
+            <div class="hero-socials">
+                <a href="https://github.com/andrea-fs" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/andreafossa1801/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="mailto:andrea.fossa1801@gmail.com" aria-label="Email">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <section id="about" class="fade-in">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-image">
-                <img src="images/my_profile.jpg" alt="Andrea Fossà Profile Picture">
-            </div>
-            <div class="about-text">
-                <p>Hello! I'm Andrea Fossà, a Master's student in Artificial Intelligence at the University of Bologna, currently an AI Research Intern at Fondazione Bruno Kessler (FBK E3DA Lab). My academic journey includes a BS in Bioinformatics from the University of Verona.</p>
-                <br>
-                <p>My passion lies in processing bio-signals using deep learning techniques on edge devices, with a focus on energy-efficient embedded digital architectures. I've also developed passive Brain-Computer Interfaces (BCI) for assessing Mental Workload. I am always eager to apply my knowledge in Machine Learning, Deep Learning, Computer Vision, and Natural Language Processing to solve complex problems.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="fade-in">
-        <h2 class="section-title">My Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-icon">🐍</div>
-                <h3>Programming Languages</h3>
-                <p>Python, C, Java, Matlab</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🧠</div>
-                <h3>AI/ML Frameworks</h3>
-                <p>PyTorch, TensorFlow, Scikit-learn, OpenCV</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🛠️</div>
-                <h3>Tools & Technologies</h3>
-                <p>Z3Py, GitHub, Docker, SQL, CUDA</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🧬</div>
-                <h3>Bioinformatics</h3>
-                <p>UniProt, PDB, BLAST, ClustalOmega, ITK-SNAP</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🗣️</div>
-                <h3>Languages</h3>
-                <p>Italian (Native), English (Fluent - B2 level)</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">💡</div>
-                <h3>Soft Skills</h3>
-                <p>Strategic problem solving, communication, creativity</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="fade-in">
-        <h2 class="section-title">My Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <!-- To add a project image from the 'images' folder: -->
-                <!-- 1. Make sure your project image file (e.g., 'project_satellite.jpg') is in the 'images' folder. -->
-                <!-- 2. Replace 'images/project_satellite.jpg' with the actual path to your image. -->
-                <div class="project-image" style="background-image: url('images/project_satellite.jpg');">
-                    <!-- If you prefer to use an <img> tag directly inside, remove the style attribute from the div and uncomment the line below -->
-                    <!-- <img src="images/project_satellite.jpg" alt="Satellite Segmentation Project"> -->
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about">
+        <div class="container">
+            <span class="section-label">01 / About</span>
+            <h2 class="section-title">Who I Am</h2>
+            <div class="about-grid">
+                <div class="about-photo">
+                    <div class="photo-frame">
+                        <div class="photo-frame">
+                            <img src="images/my_profile.jpg" alt="Andrea Fossà">
+                        </div>
+                    <div class="photo-decoration"></div>
                 </div>
-                <div class="project-content">
+                <div class="about-text">
+                    <p class="about-lead">AI/ML graduate specialising in <strong>signal processing</strong> and <strong>deep learning for embedded systems</strong>.</p>
+                    <p>I design real-time inference pipelines for resource-constrained hardware (edge devices / MCUs) and apply deep learning to multi-channel time-series signals and satellite imagery.</p>
+                    <p>Currently finishing my Master's in Artificial Intelligence at the University of Bologna, with a thesis on deep learning models for multi-channel EEG processing and embedded inference on edge hardware.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">107</span>
+                            <span class="stat-label">/110 GPA</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Research Internships</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1</span>
+                            <span class="stat-label">Publication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section id="experience" class="section-alt">
+        <div class="container">
+            <span class="section-label">02 / Experience</span>
+            <h2 class="section-title">Where I've Worked & Studied</h2>
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-badge work">Work</span>
+                            <span class="timeline-date">Mar 2025 — Sep 2025</span>
+                        </div>
+                        <h3>AI Research Intern — Signal Processing</h3>
+                        <h4>Fondazione Bruno Kessler, FBK E3DA Lab &middot; Trento</h4>
+                        <ul>
+                            <li>Designed deep learning pipelines for <strong>multi-channel EEG signal processing</strong> targeting real-time inference on edge/embedded devices (MCUs).</li>
+                            <li>Applied model quantisation and compression techniques for strict latency and memory constraints.</li>
+                            <li>End-to-end workflow: raw signal acquisition, pre-processing (filtering, artefact removal, spectral analysis), model training, and on-device validation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-badge work">Work</span>
+                            <span class="timeline-date">Mar 2023 — Jul 2023</span>
+                        </div>
+                        <h3>Signal Processing & BCI Research Intern</h3>
+                        <h4>BraiNavLab &middot; Verona</h4>
+                        <ul>
+                            <li>Developed a passive Brain-Computer Interface for real-time Mental Workload assessment.</li>
+                            <li>Built signal acquisition pipeline: band-pass filtering, epoch segmentation, time-frequency feature extraction, ML-based classification.</li>
+                            <li>Published research on subject dependency in BCI decoding.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker edu"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-badge edu">Education</span>
+                            <span class="timeline-date">Sep 2023 — Mar 2026</span>
+                        </div>
+                        <h3>MS in Artificial Intelligence</h3>
+                        <h4>University of Bologna</h4>
+                        <ul>
+                            <li>Deep Learning, Computer Vision, NLP (Transformers/LLMs), Knowledge Representation & Reasoning.</li>
+                            <li>Thesis: Deep learning models for multi-channel biosignal (EEG) processing and embedded inference on edge hardware.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker edu"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-badge edu">Education</span>
+                            <span class="timeline-date">Sep 2020 — Jul 2023</span>
+                        </div>
+                        <h3>BS in Bioinformatics</h3>
+                        <h4>University of Verona &middot; 107/110</h4>
+                        <ul>
+                            <li>Strong background in signal analysis, statistics, and scientific computing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section id="projects">
+        <div class="container">
+            <span class="section-label">03 / Projects</span>
+            <h2 class="section-title">Selected Work</h2>
+            <div class="projects-grid">
+
+                <article class="project-card featured">
+                    <div class="project-number">01</div>
                     <h3>Satellite Image Semantic Segmentation</h3>
-                    <p>Project focused on segmenting satellite images using deep learning techniques.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/andrea-fs/DL_satellite_image_segmentation" target="_blank" class="project-link">GitHub</a>
+                    <p>Encoder-decoder CNNs (U-Net variants) for pixel-level land-cover classification on multi-spectral satellite imagery. Focus on data-efficient training and generalisation.</p>
+                    <div class="project-tags">
+                        <span>PyTorch</span><span>U-Net</span><span>Remote Sensing</span>
+                    </div>
+                    <a href="https://github.com/andrea-fs/DL_satellite_image_segmentation" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-number">02</div>
+                    <h3>Multi-Modal Population Prediction</h3>
+                    <p>Fused satellite imagery + OpenStreetMap vector data into a unified DL model for urban-scale walkable population prediction.</p>
+                    <div class="project-tags">
+                        <span>Deep Learning</span><span>Geospatial</span><span>Data Fusion</span>
+                    </div>
+                    <a href="https://github.com/andrea-fs" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-number">03</div>
+                    <h3>OoD Objects in Autonomous Driving</h3>
+                    <p>Anomaly-detection-aware semantic segmentation for safety-critical autonomous vehicle navigation, robust to unexpected inputs.</p>
+                    <div class="project-tags">
+                        <span>Segmentation</span><span>Anomaly Detection</span><span>Safety</span>
+                    </div>
+                    <a href="https://github.com/andrea-fs" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-number">04</div>
+                    <h3>NLP Pipeline for Text Analysis</h3>
+                    <p>End-to-end pipeline using BERT/RoBERTa Transformers for classification and information extraction from noisy text.</p>
+                    <div class="project-tags">
+                        <span>NLP</span><span>Transformers</span><span>HuggingFace</span>
+                    </div>
+                    <a href="https://github.com/sangioai/NLP_Assignments" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-number">05</div>
+                    <h3>From-Scratch AI</h3>
+                    <p>ML algorithms, statistical signal detectors (matched filter, hypothesis testing), and classical object detection from first principles in Python/NumPy.</p>
+                    <div class="project-tags">
+                        <span>Python</span><span>NumPy</span><span>Signal Processing</span>
+                    </div>
+                    <a href="https://github.com/andrea-fs/Statistics_and_math_AI" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-number">06</div>
+                    <h3>Multiple Courier Planning</h3>
+                    <p>Combinatorial Decision Making & Optimisation for complex logistical problems using constraint programming and SAT solvers.</p>
+                    <div class="project-tags">
+                        <span>Optimisation</span><span>Z3</span><span>Constraint Programming</span>
+                    </div>
+                    <a href="https://github.com/andrea-fs/CDMO_ProjectWork" target="_blank" rel="noopener" class="project-link">
+                        View on GitHub
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section id="skills" class="section-alt">
+        <div class="container">
+            <span class="section-label">04 / Skills</span>
+            <h2 class="section-title">Technologies & Tools</h2>
+            <div class="skills-categories">
+
+                <div class="skill-category">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        Languages
+                    </h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">C</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">R</span>
                     </div>
                 </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_ai_scratch.jpg');"></div>
-                <div class="project-content">
-                    <h3>From Scratch AI</h3>
-                    <p>Development of AI models and algorithms from fundamental principles.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/andrea-fs/Statistics_and_math_AI" target="_blank" class="project-link">GitHub</a>
+
+                <div class="skill-category">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        ML / DL Frameworks
+                    </h3>
+                    <div class="skill-tags">
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">HuggingFace</span>
+                        <span class="tag">OpenCV</span>
                     </div>
                 </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_nlp_sexism.jpg');"></div>
-                <div class="project-content">
-                    <h3>NLP for Sexism Detection in Tweets</h3>
-                    <p>Applied NLP techniques and prompting strategies to detect sexism in social media data.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/sangioai/NLP_Assignments" target="_blank" class="project-link">GitHub</a>
+
+                <div class="skill-category">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        Signal Processing
+                    </h3>
+                    <div class="skill-tags">
+                        <span class="tag">SciPy</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">MNE (EEG)</span>
+                        <span class="tag">Time-Frequency Analysis</span>
+                        <span class="tag">Spectral Estimation</span>
+                        <span class="tag">Digital Filter Design</span>
                     </div>
                 </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_object_detection.jpg');"></div>
-                <div class="project-content">
-                    <h3>Detecting Objects: Classic and NN</h3>
-                    <p>Exploration of object detection methods, including classical approaches and neural networks.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/andrea-fs/IPVC_Assignment" target="_blank" class="project-link">GitHub</a>
+
+                <div class="skill-category">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+                        Geospatial / Remote Sensing
+                    </h3>
+                    <div class="skill-tags">
+                        <span class="tag">Multi-spectral Imagery</span>
+                        <span class="tag">OSM Data Fusion</span>
+                        <span class="tag">Aerial Segmentation</span>
                     </div>
                 </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image" style="background-image: url('images/project_courier_planning.jpg');"></div>
-                <div class="project-content">
-                    <h3>Combinatorial Decision Making and Optimization for Multiple Courier Planning</h3>
-                    <p>Solving complex logistical problems using combinatorial optimization for courier routes.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/andrea-fs/CDMO_ProjectWork" target="_blank" class="project-link">GitHub</a>
+
+                <div class="skill-category">
+                    <h3>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        Infrastructure & Tools
+                    </h3>
+                    <div class="skill-tags">
+                        <span class="tag">CUDA</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">GitHub</span>
+                        <span class="tag">Linux</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">Azure</span>
+                        <span class="tag">SQL</span>
                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PUBLICATIONS ===================== -->
+    <section id="publications">
+        <div class="container">
+            <span class="section-label">05 / Research</span>
+            <h2 class="section-title">Publications</h2>
+            <div class="publication-card">
+                <div class="pub-accent"></div>
+                <div class="pub-content">
+                    <h3>Explicit modelling of subject dependency in BCI decoding</h3>
+                    <p class="pub-meta">arXiv:2509.23247 &middot; 2025</p>
+                    <p class="pub-desc">Research on brain-computer interface decoding, addressing the challenge of inter-subject variability in EEG-based systems.</p>
+                    <a href="https://arxiv.org/abs/2509.23247" target="_blank" rel="noopener" class="project-link">
+                        Read on arXiv
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="hobbies" class="fade-in">
-        <h2 class="section-title">My Hobbies & Interests</h2>
-        <div class="hobbies-grid">
-            <div class="hobby-card">
-                <div class="hobby-icon">⚽</div>
-                <h3>Football</h3>
-                <p>I've been passionate about football since childhood. I've played competitively, even reaching the first team level, and now continue playing in amateur leagues. It's taught me teamwork, discipline, and the importance of continuous improvement.</p>
-            </div>
-            <div class="hobby-card">
-                <div class="hobby-icon">🎧</div>
-                <h3>History & Geopolitics</h3>
-                <p>I'm an avid listener of podcasts and reader of stories about history and geopolitics. Understanding the world's complexity and historical patterns helps me better comprehend current events and global dynamics.</p>
-            </div>
-            <div class="hobby-card">
-                <div class="hobby-icon">⚖️</div>
-                <h3>Social Justice</h3>
-                <p>I'm deeply committed to human rights and social justice causes. I believe technology and AI should be developed ethically and inclusively, contributing to a more equitable society for everyone.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="fade-in">
-        <h2 class="section-title">Contact Me</h2>
-        <div class="contact-content">
-            <p>I'm always open to new opportunities and interesting projects. Feel free to reach out!</p>
-            <div class="contact-info">
-                <a href="mailto:andrea.fossa1801@gmail.com" class="contact-item">
-                    <span>📧</span>
-                    <span>andrea.fossa1801@gmail.com</span>
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="section-alt">
+        <div class="container">
+            <span class="section-label">06 / Contact</span>
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="contact-intro">I'm always open to new opportunities and interesting projects. Feel free to reach out!</p>
+            <div class="contact-grid">
+                <a href="mailto:andrea.fossa1801@gmail.com" class="contact-card">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">andrea.fossa1801@gmail.com</span>
                 </a>
-                <a href="mailto:andrea.fossa@studio.unibo.it" class="contact-item">
-                    <span>📧</span>
-                    <span>andrea.fossa@studio.unibo.it</span>
+                <a href="https://www.linkedin.com/in/andreafossa1801/" target="_blank" rel="noopener" class="contact-card">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">andreafossa1801</span>
                 </a>
-                <a href="https://www.linkedin.com/in/andreafossa1801/" target="_blank" class="contact-item">
-                    <span>🌐</span>
-                    <span>LinkedIn Profile</span>
-                </a>
-                <a href="https://github.com/andrea-fs" target="_blank" class="contact-item">
-                    <span>🐙</span>
-                    <span>GitHub Profile</span>
+                <a href="https://github.com/andrea-fs" target="_blank" rel="noopener" class="contact-card">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span class="contact-label">GitHub</span>
+                    <span class="contact-value">andrea-fs</span>
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- ===================== FOOTER ===================== -->
     <footer>
-        <p>&copy; 2025 Andrea Fossà. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2026 Andrea Foss&agrave;</p>
+        </div>
     </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Header background change on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(15, 23, 42, 0.98)';
-            } else {
-                header.style.background = 'rgba(15, 23, 42, 0.95)';
-            }
-        });
-
-        // JavaScript to fetch and display GitHub repositories
-        document.addEventListener('DOMContentLoaded', function() {
-            const githubUsername = "andrea-fs"; // <-- IMPORTANT: Change this to your GitHub username!
-            const projectsContainer = document.getElementById("github-projects-container");
-
-            if (githubUsername === "YOUR_GITHUB_USERNAME" || githubUsername === "") {
-                projectsContainer.innerHTML = `
-                    <p style="text-align: center; color: var(--text-gray);">
-                        Please update the 'githubUsername' variable in the script with your actual GitHub username to load projects.
-                    </p>
-                `;
-                return; // Stop execution if username is not set
-            }
-
-            fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=6`) // Fetch up to 6 most recently updated repos
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`GitHub API error: ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(repos => {
-                    projectsContainer.innerHTML = ''; // Clear "Loading..." message
-                    if (repos.length === 0) {
-                        projectsContainer.innerHTML = `
-                            <p style="text-align: center; color: var(--text-gray);">
-                                No public repositories found for this user.
-                            </p>
-                        `;
-                        return;
-                    }
-
-                    repos.forEach(repo => {
-                        // Exclude forks if you only want your original projects
-                        // if (repo.fork) return;
-
-                        const projectCard = document.createElement("div");
-                        projectCard.className = "project-card"; // Apply existing project card styles
-
-                        projectCard.innerHTML = `
-                            <div class="project-image">
-                                <!-- Generic icon or gradient for projects. GitHub API does not provide images for repos. -->
-                                ⚙️
-                            </div>
-                            <div class="project-content">
-                                <h3>${repo.name}</h3>
-                                <p>${repo.description || "No description provided."}</p>
-                                <div class="project-links">
-                                    <a href="${repo.html_url}" target="_blank" class="project-link">View on GitHub</a>
-                                </div>
-                            </div>
-                        `;
-                        projectsContainer.appendChild(projectCard);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error loading GitHub repositories:", error);
-                    projectsContainer.innerHTML = `
-                        <p style="text-align: center; color: var(--text-gray);">
-                            Failed to load projects. Please check your GitHub username and internet connection.
-                        </p>
-                    `;
-                });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
