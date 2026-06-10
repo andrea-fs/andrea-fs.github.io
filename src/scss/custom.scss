@@ -1,5 +1,26 @@
+// Design tokens — Apple.com-inspired light & clean palette.
+// Bootstrap variable overrides MUST come before the bootstrap import.
+$font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif;
+
+$body-bg: #ffffff;
+$body-color: #1d1d1f;
+
+$primary: #0071e3;
+$secondary: #6e6e73;
+$light: #f5f5f7;
+$dark: #1d1d1f;
+
+$border-radius: 0.75rem;
+$border-radius-lg: 1rem;
+$border-radius-sm: 0.5rem;
+
+$link-color: $primary;
+$link-decoration: none;
+
+$headings-font-weight: 700;
+$font-weight-bold: 700;
+
 @import "~bootstrap/scss/bootstrap.scss";
-@import "./animations";
 @import "./index";
-@import "./stars";
 @import "./typography";

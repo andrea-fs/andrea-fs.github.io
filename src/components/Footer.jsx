@@ -1,27 +1,33 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
+import { mainBody } from "../editable-stuff/config.js";
 
-const Footer = (props) => {
-  const bgStyle = { backgroundColor: "#f5f5f5" };
+const Footer = () => {
+  const year = new Date().getFullYear();
 
   return (
-    <footer style={bgStyle} className="mt-auto py-5 text-center ">
+    <footer className="footer text-center">
       <Container>
-        {props.children}
-        <i className="fas fa-code" /> with <i className="fas fa-heart" /> by{" "}
-        <a
-          rel="noopener"
-          href="https://github.com/andrea-fs"
-          aria-label="My GitHub"
-        > <span className="badge bg-dark">
-            Andrea Fossà
-          </span>
-        </a>{" "}
-        using <i className="fab fa-react" />
-        <p>
-          <small className="text-muted">
-            Project code is open source. Feel free to fork and make your own
-            version.
+        <div className="mb-3">
+          {mainBody.icons.map((icon, index) => (
+            <a
+              key={`footer-social-${index}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={icon.url}
+              aria-label={`My ${icon.image.split("-")[1]}`}
+            >
+              <i className={`fab ${icon.image} fa-lg socialicons`} />
+            </a>
+          ))}
+        </div>
+        <p className="mb-1">
+          © {year} {mainBody.firstName} {mainBody.lastName}
+        </p>
+        <p className="mb-0">
+          <small>
+            Built with React. Project code is open source — feel free to fork
+            and make your own version.
           </small>
         </p>
       </Container>

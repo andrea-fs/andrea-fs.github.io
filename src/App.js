@@ -4,79 +4,79 @@ import {
   navBar,
   mainBody,
   about,
+  education,
   repos,
-  leadership,
   skills,
+  languagesAndSoft,
+  gallery,
   getInTouch,
   experiences,
-  blog
 } from "./editable-stuff/config.js";
 import MainBody from "./components/home/MainBody";
 import AboutMe from "./components/home/AboutMe";
+import Education from "./components/home/Education";
+import Experience from "./components/home/Experience";
 import Project from "./components/home/Project";
+import Skills from "./components/home/Skills";
+import Gallery from "./components/home/Gallery";
+import GetInTouch from "./components/home/GetInTouch.jsx";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import Skills from "./components/home/Skills";
-import { Blog } from "./components/blog/Blog"; // since Blog has two exports
-import BlogPost from "./components/blog/BlogPost";
-import GetInTouch from "./components/home/GetInTouch.jsx";
-import Leadership from "./components/home/Leadership.jsx";
-
-import Experience from "./components/home/Experience";
 
 const Home = React.forwardRef((props, ref) => {
   return (
     <>
       <MainBody
-        gradient={mainBody.gradientColors}
-        title={`${mainBody.firstName} ${mainBody.middleName} ${mainBody.lastName}`}
-        message={mainBody.message}
+        name={`${mainBody.firstName} ${mainBody.middleName} ${mainBody.lastName}`}
+        tagline={mainBody.tagline}
+        backgroundImage={mainBody.backgroundImage}
         icons={mainBody.icons}
+        resume={about.resume}
         ref={ref}
       />
       {about.show && (
         <AboutMe
           heading={about.heading}
           message={about.message}
-          link={about.imageLink}
-          imgSize={about.imageSize}
+          image={about.imageLink}
           resume={about.resume}
-          secondResume={about.secondResume}
         />
       )}
-      {
-        experiences.show && (
-          <Experience experiences={experiences}/>
-        )
-      }
+      {education.show && (
+        <Education heading={education.heading} data={education.data} />
+      )}
+      {experiences.show && (
+        <Experience heading={experiences.heading} data={experiences.data} />
+      )}
       {repos.show && (
         <Project
           heading={repos.heading}
           username={repos.gitHubUsername}
           length={repos.reposLength}
           specfic={repos.specificRepos}
+          featured={repos.featured}
         />
       )}
       {skills.show && (
         <Skills
           heading={skills.heading}
-          hardSkills={skills.hardSkills}
-          softSkills={skills.softSkills}
+          categories={skills.categories}
+          languagesAndSoft={languagesAndSoft.show ? languagesAndSoft : null}
         />
       )}
-      {leadership.show && (
-        <Leadership
-          heading={leadership.heading}
-          message={leadership.message}
-          img={leadership.images}
-          imageSize={leadership.imageSize}
+      {gallery.show && (
+        <Gallery
+          heading={gallery.heading}
+          message={gallery.message}
+          items={gallery.items}
         />
       )}
-      {blog.show && (
-        <Blog
-          heading={blog.heading}
-          blogList={blog.blogList}
-          />
+      {getInTouch.show && (
+        <GetInTouch
+          heading={getInTouch.heading}
+          message={getInTouch.message}
+          email={getInTouch.email}
+        />
       )}
     </>
   );
@@ -90,18 +90,8 @@ const App = () => {
       {navBar.show && <Navbar ref={titleRef} />}
       <Routes>
         <Route path="/" exact element={<Home ref={titleRef} />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
-      <Footer>
-        {getInTouch.show && (
-          <GetInTouch
-            heading={getInTouch.heading}
-            message={getInTouch.message}
-            email={getInTouch.email}
-          />
-        )}
-      </Footer>
+      <Footer />
     </BrowserRouter>
   );
 };

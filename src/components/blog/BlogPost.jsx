@@ -1,10 +1,8 @@
 import React from "react";
-import { useParams } from "react-router-dom"; // Import the useParams hook for react router v6 or later
 import bloglist from "../../editable-stuff/blog";
-
-const BlogPost = () => {
-  const { id } = useParams(); // Use useParams to get the id
-  const post = bloglist[id]; // Get the post using the ID
+const BlogPost = ({ match }) => {
+  const { id } = match.params;
+  const post = bloglist[id];
 
   return (
     <div className="container-lg mt-5">

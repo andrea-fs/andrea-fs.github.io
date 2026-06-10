@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-// import { useScrollPosition } from "../../hooks/useScrollPosition";
 
 class BlogBuilder {
   list = [];

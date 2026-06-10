@@ -3,13 +3,15 @@ const navBar = {
   show: true,
 };
 
-// Main Body SECTION
+// Main Body / Hero SECTION
 const mainBody = {
-  gradientColors: "#4484ce, #1ad7c0, #ff9b11, #9b59b6, #ff7f7f, #ecf0f1",
   firstName: "Andrea",
   middleName: "",
   lastName: "Fossà",
-  message: " Student in Artificial Intelligence ",
+  tagline:
+    "MS Student in Artificial Intelligence at the University of Bologna — building intelligent systems at the intersection of AI, neuroscience and bioinformatics.",
+  backgroundImage:
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&q=80",
   icons: [
     {
       image: "fa-github",
@@ -21,111 +23,210 @@ const mainBody = {
     },
     {
       image: "fa-linkedin",
-      url: "https://www.linkedin.com/in/andreafossa1801/",
+      url: "https://www.linkedin.com/in/andreafossa1801",
     },
   ],
 };
 
 // ABOUT SECTION
-// If you want the About Section to show a profile picture you can fill the profilePictureLink either with:
-//a) your Instagram username
-//      i.e:profilePictureLink:"johnDoe123",
-//b) a link to an hosted image
-//      i.e:profilePictureLink:"www.picturesonline.com/johnDoeFancyAvatar.jpg",
-//c) image in "editable-stuff" directory and use require("") to import here,
-//      i.e: profilePictureLink: require("../editable-stuff/hashirshoaeb.png"),
-//d) If you do not want any picture to be displayed, just leave it empty :)
-//      i.e: profilePictureLink: "",
-// For Resume either provide link to your resume or import from "editable-stuff" directory
-//     i.e resume: require("../editable-stuff/resume.pdf"),
-//         resume: "https://docs.google.com/document/d/13_PWdhThMr6roxb-UFiJj4YAFOj8e_bv3Vx9UHQdyBQ/edit?usp=sharing",
-
 const about = {
   show: true,
   heading: "About Me",
-  imageLink: require("../editable-stuff/profilepng.png"),
-  imageSize: 305,
+  imageLink: require("../editable-stuff/profile.png"),
+  imageSize: 375,
   message:
-    "My name is Andrea Fossà. I will be a graduate in 2025 from the University of Bologna in Italy with a master's degree in Artificial Intelligence. In addition to my passion for AI, I am also deeply interested in history and geopolitics, which provide me with a broader understanding of global dynamics and how technology shapes the future.",
-  resume: process.env.PUBLIC_URL + "/resume.pdf",
-  secondResume: process.env.PUBLIC_URL + "/secondResume.pdf",
+    "I'm an MS student in Artificial Intelligence at the University of Bologna, with a background in Bioinformatics from the University of Verona. My work sits at the intersection of deep learning, neuroscience and biological data — from EEG-based brain-computer interfaces to genomics and medical imaging. I'm currently working as a Consultant at Reply, after research internships at Fondazione Bruno Kessler (E3DA Lab) and BraiNavLab. Based in Roncà, Italy, I'm always curious about how AI can be applied responsibly to real-world, human-centered problems.",
+  resume: require("../editable-stuff/resume.pdf"),
+};
+
+// EDUCATION SECTION
+const education = {
+  show: true,
+  heading: "Education",
+  data: [
+    {
+      degree: "MS in Artificial Intelligence",
+      institution: "University of Bologna",
+      location: "Bologna, Italy",
+      date: "Sept 2023 – Mar 2026",
+      description:
+        "Coursework in AI for Medicine (NER, Gene Ontology, Clinical Data), Natural Language Processing (LLMs, Transformers), Deep Learning, Computer Vision, and Knowledge Representation & Reasoning (Ontologies, Semantic Web). Thesis on applying deep learning models to biological data integration and analysis. GPA: 106/110.",
+    },
+    {
+      degree: "BS in Bioinformatics",
+      institution: "University of Verona",
+      location: "Verona, Italy",
+      date: "Sept 2020 – Jul 2023",
+      description:
+        "Computer Science track (L-31) with a focus on bioinformatics methods, tools and biological data analysis. GPA: 107/110.",
+    },
+  ],
 };
 
 // PROJECTS SECTION
-// Setting up project length will automatically fetch your that number of recently updated projects, or you can set this field 0 to show none.
-//      i.e: reposLength: 0,
-// If you want to display specfic projects, add the repository names,
-//      i.e ["repository-1", "repo-2"]
+// "featured" are curated projects from the CV, shown as cards with imagery.
+// The live GitHub grid below fetches the most recently updated repos automatically.
 const repos = {
   show: true,
   heading: "Recent Projects",
-  gitHubUsername: "andrea-fs", //i.e."johnDoe12Gh"
+  gitHubUsername: "andrea-fs",
   reposLength: 4,
   specificRepos: [],
-};
-
-// Leadership SECTION
-const leadership = {
-  show: true,
-  heading: "Frequently Asked Questions",
-  message:
-  `What are you looking for?
-A: I am actively seeking internship opportunities in the field of
-Artificial Intelligence to gain practical experience and enhance my skills. 
-_____________________________________________________________
-Where are you located, and are you willing to relocate?
-A: I am currently based in Italy, but I am open to relocating for the right
-opportunities, including internships and job offers
-_____________________________________________________________
-What is your educational background?
-A: I am pursuing a master’s degree in Artificial Intelligence at the University of Bologna,
- expected to graduate in 2025. I also hold a bachelor’s degree in Bioinformatics from the University of Verona.
-_____________________________________________________________
-What are your main areas of expertise?
-A: I have worked on several AI projects, including semantic segmentation of satellite images,
- object detection, and optimizing courier planning problems with combinatorial decision-making techniques.
- My bioinformatics projects include developing a passive BCI system to assess cognitive workload.
-_____________________________________________________________
-How do you stay up-to-date in the field? A:
-I stay current by regularly reading scientific papers, actively working on coding projects,
- and engaging in discussions with peers and also professors.
- This helps me maintain a broad and deep understanding of both cutting-edge research and practical applications.
-`,
-  images: [
-    { 
-      img: require("../editable-stuff/museum.png"), 
-      label: "Travelling", 
-      paragraph: "I love to visit museum this was under the ara pacis in Rome" 
+  featured: [
+    {
+      title: "Explicit Modelling of Subject Dependency in BCI Decoding",
+      description:
+        "Deep learning models for EEG signal processing in PyTorch, explicitly modelling subject-to-subject variability in brain-computer interface decoding. Published on ArXiv.",
+      tags: ["PyTorch", "EEG", "BCI", "Deep Learning"],
+      image:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the ArXiv / repo link
     },
-    { 
-      img: require("../editable-stuff/lib.png"), 
-      label: "Studying", 
-      paragraph: "If I have to choose a fav book it's 'l'impero dei draghi, Manfredi'" 
+    {
+      title: "Advanced NLP Pipeline for Unstructured Text Analysis",
+      description:
+        "End-to-end NLP pipeline using Transformers (BERT/RoBERTa) and LLMs for semantic analysis and classification of noisy, unstructured text — including data cleaning, tokenization, preprocessing and fine-tuning for information extraction.",
+      tags: ["NLP", "Transformers", "BERT", "LLMs"],
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
     },
-    { 
-      img: require("../editable-stuff/calcio.png"), 
-      label: "Football", 
-      paragraph: "I also enjoy staying active through sports, which helps me maintain a healthy balance alongside my academic and personal interests. It’s a great way to recharge and stay focused." 
+    {
+      title: "AI for Medicine: Diagnostic & Genomics Analysis",
+      description:
+        "Machine learning algorithms for medical imaging and genomic sequence analysis, integrating heterogeneous biological datasets.",
+      tags: ["Medical Imaging", "Genomics", "Machine Learning"],
+      image:
+        "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
+    },
+    {
+      title: "Multi-Modal Walkable Population Prediction",
+      description:
+        "Predicting walkable population density by fusing satellite imagery with OpenStreetMap data in a multi-modal deep learning model.",
+      tags: ["Satellite Imagery", "OSM", "Deep Learning"],
+      image:
+        "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
+    },
+    {
+      title: "Semantic Segmentation of OOD Objects for AV Navigation",
+      description:
+        "Semantic segmentation pipeline focused on detecting out-of-distribution objects to improve safety in autonomous vehicle navigation.",
+      tags: ["Computer Vision", "Segmentation", "Autonomous Vehicles"],
+      image:
+        "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
+    },
+    {
+      title: "Satellite Image Semantic Segmentation",
+      description:
+        "Semantic segmentation of satellite imagery to classify land cover and urban features at scale.",
+      tags: ["Satellite Imagery", "Segmentation", "Computer Vision"],
+      image:
+        "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
+    },
+    {
+      title: "From Scratch AI — Detecting Objects: Classic & NN",
+      description:
+        "Object detection implemented from scratch, comparing classical computer vision approaches against neural-network-based methods.",
+      tags: ["Computer Vision", "From Scratch", "Object Detection"],
+      image:
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
+    },
+    {
+      title: "Multi-Courier Planning — Combinatorial Optimization",
+      description:
+        "Combinatorial decision making and optimization models for the multiple courier planning problem.",
+      tags: ["Optimization", "Combinatorial Decision Making"],
+      image:
+        "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80",
+      link: "https://github.com/andrea-fs", // TODO: replace with the repo link
     },
   ],
-  imageSize: {
-    width:"115",
-    height:"750"
-  }
 };
 
 // SKILLS SECTION
 const skills = {
   show: true,
   heading: "Skills",
-  hardSkills: [
-    { name: "English", value: 'B2' },
-    { name: "Italian", value: 'Native' },
-    { name: "Coding", value: "Python, C, MatLab, Constraint Programming, PyTorch, TensorFlow" },
-    { name: "Bioinformatics", value: "EEGLab, Bioinformatics Tools and Databases (UniProt, Protparam, PDB, Clustal Omega, BLAST), AlphaFold" },
-    { name: "Promote communication between people with different cultural backgrounds", value: "rk8OF-XJS3WniWiuwgf_Cg"},
-    { name: "Objective: Sustainable Development", value: "IlLBMjcoSB2IVUTx-A7lJg"},
-    { name: "Strategic problem solving patterns for better creativity", value: "fP1eQwjnTru_mZ_QFhOJ5Q"},
+  categories: [
+    {
+      name: "Languages",
+      items: ["Python", "C", "Java", "Matlab", "R"],
+    },
+    {
+      name: "AI / ML & Data",
+      items: [
+        "PyTorch",
+        "TensorFlow",
+        "Scikit-learn",
+        "OpenCV",
+        "HuggingFace",
+        "Spacy",
+        "Z3Py",
+      ],
+    },
+    {
+      name: "Platforms & Tools",
+      items: ["Docker", "AWS", "Azure", "CUDA", "SQL", "Git", "Linux"],
+    },
+    {
+      name: "Bioinformatics",
+      items: [
+        "UniProt",
+        "PDB",
+        "BLAST",
+        "ClustalOmega",
+        "ITK-SNAP",
+        "ChEMBL/PubChem",
+        "Biomedical Ontologies",
+      ],
+    },
+  ],
+};
+
+// LANGUAGES & SOFT SKILLS SECTION
+const languagesAndSoft = {
+  show: true,
+  heading: "Languages & Soft Skills",
+  languages: [
+    { name: "Italian", level: "Native" },
+    { name: "English", level: "Fluent" },
+  ],
+  softSkills: [
+    "Cross-cultural communication",
+    "Sustainable development mindset",
+    "Strategic problem solving & creativity",
+  ],
+};
+
+// GALLERY SECTION ("Beyond the code")
+const gallery = {
+  show: true,
+  heading: "Beyond the Code",
+  message: "A few glimpses of life outside research and code.",
+  items: [
+    {
+      img: require("../editable-stuff/algo.png"),
+      label: "Focus mode",
+      paragraph:
+        "Working through algorithms outdoors — laptop, headphones and a good book nearby.",
+    },
+    {
+      img: require("../editable-stuff/calcio.png"),
+      label: "On the pitch",
+      paragraph:
+        "Playing football — teamwork and strategy off the screen too.",
+    },
+    {
+      img: require("../editable-stuff/museum.png"),
+      label: "Curiosity beyond tech",
+      paragraph:
+        "Exploring art and museums — a different kind of pattern recognition.",
+    },
   ],
 };
 
@@ -134,52 +235,59 @@ const getInTouch = {
   show: true,
   heading: "Get In Touch",
   message:
-    "I'm currently looking for full-time Artificial Intelligence opportunities! If you know of any positions available, if you have any questions, or if you just want to say hi, please feel free to email me at",
+    "I'm currently looking for full-time AI Engineering or Machine Learning opportunities! If you know of any positions available, if you have any questions, or if you just want to say hi, please feel free to email me at",
   email: "andrea.fossa1801@gmail.com",
 };
 
+// EXPERIENCE SECTION
 const experiences = {
   show: true,
-  heading: "Experiences",
+  heading: "Experience",
   data: [
     {
-      role: 'BCI Research Intern',
-      companylogo: require('../assets/img/bnl.png'),
-      date: 'March 2023 – July 2023',
+      role: "Consultant",
+      company: "Reply SPA",
+      location: "Padova, Italy",
+      date: "Apr 2026 – Present",
+      description:
+        "Working as a technology consultant, contributing to AI-driven projects and software engineering solutions for enterprise clients.",
     },
     {
-      role: 'Bachelor students at University of Verona',
-      companylogo: require('../assets/img/univr.png'),
-      date: 'September 2020 – July 2023',
+      role: "AI Research Intern",
+      company: "Fondazione Bruno Kessler — E3DA Lab",
+      location: "Trento, Italy",
+      date: "Mar 2025 – Sep 2025",
+      description:
+        "Worked on processing biosignals (EEG) with deep learning techniques on edge devices, within the Energy Efficient Embedded Digital Architectures (E3DA) research unit.",
     },
     {
-      role: 'Stage at Fabbrica Italaina Sintetici F.I.S.',
-      companylogo: require('../assets/img/fis.png'),
-      date: 'May 2018 – June 2018',
+      role: "BCI Research Intern",
+      company: "BraiNavLab",
+      location: "Verona, Italy",
+      date: "Mar 2023 – Jul 2023",
+      description:
+        "Developed a passive Brain-Computer Interface for assessing mental workload.",
     },
     {
-      role: 'Labourer at Collis Wine Group',
-      companylogo: require('../assets/img/collis.png'),
-      date: 'August 2022 – October 2022',
+      role: "Stage",
+      company: "Fabbrica Italiana Sintetici",
+      location: "Lonigo, Italy",
+      date: "May 2018 – Jun 2018",
+      description:
+        "School-to-work internship in an industrial pharmaceutical manufacturing environment.",
     },
-    {
-      role: 'Labourer at Albiero SRL',
-      companylogo: require('../assets/img/albiero.png'),
-      date: 'August 2020 – October 2020',
-    },
-    {
-      role: 'Football Player in First Team',
-      companylogo: require('../assets/img/real.png'),
-      date: 'Since elementary school – June 2022',
-    },
-  ]
-}
-
-// Blog SECTION
-const blog = {
-  show: false,
-  heading: "Blog",
+  ],
 };
 
-
-export { navBar, mainBody, about, repos, skills, leadership, getInTouch, experiences, blog };
+export {
+  navBar,
+  mainBody,
+  about,
+  education,
+  repos,
+  skills,
+  languagesAndSoft,
+  gallery,
+  getInTouch,
+  experiences,
+};

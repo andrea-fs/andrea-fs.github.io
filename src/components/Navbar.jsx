@@ -3,7 +3,16 @@ import { useScrollPosition } from "../hooks/useScrollPosition";
 import useResizeObserver from "../hooks/useResizeObserver";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { mainBody, repos, about, skills, blog } from "../editable-stuff/config.js";
+import Container from "react-bootstrap/Container";
+import {
+  mainBody,
+  about,
+  education,
+  experiences,
+  repos,
+  skills,
+  getInTouch,
+} from "../editable-stuff/config.js";
 import { NavLink } from "./home/migration";
 
 const Navigation = React.forwardRef((props, ref) => {
@@ -12,10 +21,9 @@ const Navigation = React.forwardRef((props, ref) => {
   const navbarMenuRef = React.useRef();
   const navbarDimensions = useResizeObserver(navbarMenuRef);
   const navBottom = navbarDimensions ? navbarDimensions.bottom : 0;
-  
   useScrollPosition(
     ({ prevPos, currPos }) => {
-      if (!navbarDimensions || !ref.current) return;
+      if (!navbarDimensions) return;
       currPos.y + ref.current.offsetTop - navbarDimensions.bottom > 5
         ? setIsTop(true)
         : setIsTop(false);
@@ -34,75 +42,62 @@ const Navigation = React.forwardRef((props, ref) => {
   return (
     <Navbar
       ref={navbarMenuRef}
-      className={`px-3 fixed-top  ${!isTop ? "navbar-white" : "navbar-transparent"}`}
+      className={`px-3 fixed-top navbar-glass ${
+        !isTop ? "navbar-glass-scrolled" : ""
+      }`}
       expand="lg"
     >
-      <Navbar.Brand className="navbar-brand" href={process.env.PUBLIC_URL + "/#home"}>
-        {`- ${mainBody.firstName} -`}
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggler" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="navbar-nav mr-auto">
-          <NavLink
-            className="nav-item lead"
-            href={about.resume}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Resume
-          </NavLink>
-          {about.show && (
-            <NavLink
-              className="nav-item lead"
-              href={process.env.PUBLIC_URL + "/#aboutme"}
+      <Container fluid="lg">
+        <Navbar.Brand
+          className="brand"
+          href={process.env.PUBLIC_URL + "/#home"}
+        >
+          {`<${mainBody.firstName} />`}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="toggler" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto align-items-lg-center">
+            {about.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#aboutme"}>
+                About
+              </NavLink>
+            )}
+            {education.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#education"}>
+                Education
+              </NavLink>
+            )}
+            {experiences.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#experience"}>
+                Experience
+              </NavLink>
+            )}
+            {repos.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#projects"}>
+                Projects
+              </NavLink>
+            )}
+            {skills.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#skills"}>
+                Skills
+              </NavLink>
+            )}
+            {getInTouch.show && (
+              <NavLink href={process.env.PUBLIC_URL + "/#contact"}>
+                Contact
+              </NavLink>
+            )}
+            <Nav.Link
+              className="ms-lg-3 mt-2 mt-lg-0"
+              href={about.resume}
+              target="_blank"
+              rel="noreferrer noopener"
             >
-              About Me
-            </NavLink>
-          )}
-          {repos.show && (
-            <NavLink
-              className="nav-item lead"
-              href={process.env.PUBLIC_URL + "/#experiences"}
-            >
-              Experiences
-            </NavLink>
-          )}
-          {repos.show && (
-            <NavLink
-              href={process.env.PUBLIC_URL + "/#projects"}
-            >
-              Projects
-            </NavLink>
-          )}
-          {skills.show && (
-            <NavLink
-              className="nav-item lead"
-              href={process.env.PUBLIC_URL + "/#skills"}
-            >
-              Skills
-            </NavLink>
-          )}
-          
-          {repos.show && (
-            <NavLink
-              className="nav-item lead"
-              href={process.env.PUBLIC_URL + "/#faq"}
-            >
-              F.A.Q.
-            </NavLink>
-          )}
-          
-          {blog.show && (
-            <NavLink
-              className="nav-item lead"
-              href={process.env.PUBLIC_URL + "/#blog"}
-            >
-              Blog
-            </NavLink>
-          )}
-          
-        </Nav>
-      </Navbar.Collapse>
+              <span className="btn-pill btn-pill-primary">Resume</span>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 });

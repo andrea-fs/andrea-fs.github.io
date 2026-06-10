@@ -1,81 +1,52 @@
 import React from "react";
-import axios from "axios";
-import { Jumbotron } from "./migration";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Reveal from "../Reveal";
 
-const pictureLinkRegex = new RegExp(
-  /[(http(s)?):(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
-);
-
-const AboutMe = ({ heading, message, link, imgSize, resume, secondResume }) => {
-  const [profilePicUrl, setProfilePicUrl] = React.useState("");
-  const [showPic, setShowPic] = React.useState(Boolean(link));
-  
-  React.useEffect(() => {
-    const handleRequest = async () => {
-      const instaLink = "https://www.instagram.com/";
-      const instaQuery = "/?__a=1";
-      try {
-        const response = await axios.get(instaLink + link + instaQuery);
-        setProfilePicUrl(response.data.graphql.user.profile_pic_url_hd);
-      } catch (error) {
-        setShowPic(false);
-        console.error(error.message);
-      }
-    };
-
-    if (link && !pictureLinkRegex.test(link)) {
-      handleRequest();
-    } else {
-      setProfilePicUrl(link);
-    }
-  }, [link]);
-
+const AboutMe = ({ heading, message, image, resume }) => {
   return (
-    <Jumbotron id="aboutme" className="m-0">
-      <div className="container row">
-        <div className="col-5 d-none d-lg-block align-self-center">
-          {showPic && (
-            <img
-              className="border border-secondary rounded-circle"
-              src={profilePicUrl}
-              alt="profilepicture"
-              width={imgSize}
-              height={imgSize}
-            />
-          )}
-        </div>
-        <div className={`col-lg-${showPic ? "7" : "12"}`}>
-          <h2 className="display-4 mb-5 text-center">{heading}</h2>
-          <p className="lead text-center">{message}</p>
-          {resume && (
-            <div className="text-center">
-              <a
-                className="btn btn-outline-dark btn-lg mr-3"
-                href={resume}
-                target="_blank"
-                rel="noreferrer noopener"
-                role="button"
-                aria-label="Resume/CV"
-              >
-                Resume
-              </a>
-              <a
-                className="btn btn-outline-dark btn-lg ml-3"
-                href={secondResume}
-                target="_blank"
-                rel="noreferrer noopener"
-                role="button"
-                aria-label="Resume/CV 2"
-              >
-                Europass Resume
-              </a>
-            </div>
-          )}
-        </div>
-      </div>
-    </Jumbotron>
+    <section id="aboutme" className="section">
+      <Container>
+        <Row className="align-items-center g-5">
+          <Col lg={5} className="text-center">
+            <Reveal>
+              <img
+                className="rounded-circle"
+                src={image}
+                alt="Andrea Fossà"
+                style={{
+                  width: "100%",
+                  maxWidth: "320px",
+                  aspectRatio: "1 / 1",
+                  objectFit: "cover",
+                }}
+              />
+            </Reveal>
+          </Col>
+          <Col lg={7}>
+            <Reveal delay={0.1}>
+              <span className="section-eyebrow">{heading}</span>
+              <h2 className="section-title">Hi, I'm Andrea.</h2>
+              <p className="lead text-secondary mb-4">{message}</p>
+              {resume && (
+                <a
+                  className="btn-pill btn-pill-primary"
+                  href={resume}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  role="button"
+                  aria-label="Download Resume"
+                >
+                  Download Resume
+                </a>
+              )}
+            </Reveal>
+          </Col>
+        </Row>
+      </Container>
+    </section>
   );
 };
 
 export default AboutMe;
-

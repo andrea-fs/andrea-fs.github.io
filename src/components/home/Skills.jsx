@@ -1,35 +1,64 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import { Jumbotron } from "./migration";
-import { Container } from "react-bootstrap";
-import { useScrollPosition } from "../../hooks/useScrollPosition";
-// import SkillsTab from "./SkillsTab";
-import Certifications from "./Certifications";
+import Container from "react-bootstrap/Container";
+import Reveal from "../Reveal";
 
-const Skills = React.forwardRef(({ heading, hardSkills }, ref) => {
-  const skillsTabRef = React.useRef(null);
-  const [isScrolled, setIsScrolled] = React.useState(false);
-
-  useScrollPosition(
-    ({ prevPos, currPos }) => {
-      if (!isScrolled && currPos.y - 400 < 0) setIsScrolled(true);
-    },
-    [],
-    skillsTabRef
-  );
-
+const Skills = ({ heading, categories, languagesAndSoft }) => {
   return (
-    <Jumbotron ref={skillsTabRef} fluid className="bg-white m-0" id="skills">
-      <Container className="p-5 ">
-        <h2 ref={skillsTabRef} className="display-4 pb-5 text-center">
-          {heading}
-        </h2>
-        <Row className="pt-3 px-1">
-          <Certifications certifications={hardSkills} isScrolled={isScrolled} />
-        </Row>
+    <section id="skills" className="section-alt">
+      <Container>
+        <Reveal>
+          <span className="section-eyebrow">Toolbox</span>
+          <h2 className="section-title">{heading}</h2>
+        </Reveal>
+        <div className="mt-5">
+          {categories.map((category, index) => (
+            <Reveal key={category.name} delay={index * 0.05} className="mb-4">
+              <h3 className="h6 text-uppercase text-secondary mb-3">
+                {category.name}
+              </h3>
+              <div>
+                {category.items.map((item) => (
+                  <span key={item} className="tag-pill">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          ))}
+
+          {languagesAndSoft && (
+            <Reveal delay={categories.length * 0.05} className="mb-4">
+              <h3 className="h6 text-uppercase text-secondary mb-3">
+                Languages
+              </h3>
+              <div>
+                {languagesAndSoft.languages.map((lang) => (
+                  <span key={lang.name} className="tag-pill">
+                    {lang.name} · {lang.level}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          )}
+
+          {languagesAndSoft && (
+            <Reveal delay={(categories.length + 1) * 0.05}>
+              <h3 className="h6 text-uppercase text-secondary mb-3">
+                Soft Skills
+              </h3>
+              <div>
+                {languagesAndSoft.softSkills.map((item) => (
+                  <span key={item} className="tag-pill">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          )}
+        </div>
       </Container>
-    </Jumbotron>
+    </section>
   );
-});
+};
 
 export default Skills;

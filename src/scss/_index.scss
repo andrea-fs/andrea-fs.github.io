@@ -1,63 +1,86 @@
+$border-color-soft: rgba(0, 0, 0, 0.08);
+
 html {
-  font-size: 14px;
-  @media (min-width: 768px) {
-    font-size: 16px;
-  }
   scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+::selection {
+  background-color: $primary;
+  color: #fff;
 }
 
-.bgstyle {
-  /* background: linear-gradient(136deg, #1ad7c0, #8E44AD, #ff9b11, #1F3A93, #ddd8c6, #000000, #000000);  */
-  /*background: linear-gradient(
-    136deg,
-    #4484ce,
-    #1ad7c0,
-    #ff9b11,
-    #9b59b6,
-    #ff7f7f,
-    #ecf0f1
-  );*/
-
-  background-size: 1200% 1200%;
-  -webkit-animation: BackgroundAnimation 70s ease infinite;
-  -moz-animation: BackgroundAnimation 70s ease infinite;
-  -o-animation: BackgroundAnimation 70s ease infinite;
-  animation: BackgroundAnimation 70s ease infinite;
-  height: 100%;
+// ---------------------------------------------------------------------------
+// Section layout
+// ---------------------------------------------------------------------------
+.section {
+  padding: 6rem 0;
+  background-color: #fff;
 }
 
-.bg-gradient {
-  background: linear-gradient(rgba(245, 245, 245, 1), rgba(245, 245, 245, 0));
+.section-alt {
+  padding: 6rem 0;
+  background-color: $light;
 }
 
-.navbar-transparent {
+.section-eyebrow {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $primary;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: $secondary;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  max-width: 640px;
+}
+
+// ---------------------------------------------------------------------------
+// Navbar
+// ---------------------------------------------------------------------------
+.navbar-glass {
   background-color: rgba(255, 255, 255, 0);
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+
+  &.navbar-glass-scrolled {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 $border-color-soft;
+  }
 }
-.navbar-white {
-  background-color: rgba(234, 236, 239, 0.81);
-  transition: background-color 0.2s;
-}
+
 .brand {
-  color: #363636 !important;
+  color: $dark !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
+
 .nav-item {
-  transition: color, 0.2s;
+  color: $dark;
+  font-weight: 500;
+  transition: color 0.2s;
+  &:hover {
+    color: $primary;
+  }
 }
+
 .toggler {
   border: none;
   padding: 4px;
@@ -67,65 +90,311 @@ code {
     background-color: rgba(0, 0, 0, 0.05);
   }
 }
+
+// ---------------------------------------------------------------------------
+// Buttons & pills
+// ---------------------------------------------------------------------------
+.btn-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.65rem 1.7rem;
+  font-weight: 500;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-pill-primary {
+  @extend .btn-pill;
+  background-color: $primary;
+  color: #fff;
+  &:hover {
+    background-color: darken($primary, 8%);
+    color: #fff;
+  }
+}
+
+.btn-pill-outline {
+  @extend .btn-pill;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #fff;
+  }
+}
+
+.btn-pill-light {
+  @extend .btn-pill;
+  background-color: $dark;
+  color: #fff;
+  &:hover {
+    background-color: lighten($dark, 15%);
+    color: #fff;
+  }
+}
+
+.btn-pill-outline-dark {
+  @extend .btn-pill;
+  background-color: transparent;
+  color: $dark;
+  border: 1px solid $border-color-soft;
+  &:hover {
+    background-color: $light;
+    color: $dark;
+  }
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  margin: 0.25rem;
+  border-radius: 999px;
+  background-color: $light;
+  color: $dark;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid $border-color-soft;
+  transition: transform 0.2s ease, background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: $primary;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hero
+// ---------------------------------------------------------------------------
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 130%;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+}
+
+.hero-title {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.75rem, 8vw, 5.5rem);
+  margin-bottom: 1rem;
+}
+
+.hero-tagline {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+}
+
 .socialicons {
-  color: white;
+  color: inherit;
   padding-left: 5px;
   padding-right: 5px;
-  transition: all 0.8s;
   margin: 4px;
+  transition: opacity 0.2s, transform 0.2s;
   &:hover {
-    color: black;
-    padding-left: 5px;
-    padding-right: 5px;
-    transition: all 0.8s;
-    margin: 4px;
-  }
-}
-
-.title {
-  height: 100%;
-  left: 0;
-  right: 0;
-  color: #fff;
-  text-align: center;
-  margin-top: 0px;
-}
-
-.typist {
-  min-height: 6rem;
-  @media (min-width: 360px) {
-    min-height: 4rem;
-  }
-  @media (min-width: 768px) {
-    min-height: 2.5rem;
-  }
-}
-
-.card {
-  transition: transform 0.3s, box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0 2rem 3rem rgba($black, 0.175) !important;
+    opacity: 0.7;
     transform: translateY(-2px);
-    transition: transform 0.3s, box-shadow 0.3s;
   }
 }
-.skills-tabs {
-  flex-grow: 1;
+
+// ---------------------------------------------------------------------------
+// Timeline (Education / Experience)
+// ---------------------------------------------------------------------------
+.timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 2.25rem;
+  border-left: 2px solid $border-color-soft;
 }
-.skills-tab {
-  flex-grow: 1;
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 3rem;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -2.5rem;
+    top: 0.4rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 50%;
+    background-color: $primary;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px $primary;
+  }
+}
+
+.timeline-date {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $primary;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.1rem;
+}
+
+.timeline-subtitle {
+  color: $secondary;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// Project cards
+// ---------------------------------------------------------------------------
+.project-card {
+  background-color: #fff;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  border: 1px solid $border-color-soft;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.1);
+  }
+}
+
+.project-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.project-card-body {
+  padding: 1.5rem;
+}
+
+// ---------------------------------------------------------------------------
+// Gallery (horizontal scroll-snap)
+// ---------------------------------------------------------------------------
+.gallery-scroll {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 1rem 0 2rem;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $border-color-soft;
+    border-radius: 999px;
+  }
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: min(80vw, 420px);
+  scroll-snap-align: center;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  position: relative;
+  background-color: $light;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  padding: 1rem 1.25rem;
+}
+
+// ---------------------------------------------------------------------------
+// Contact CTA & footer
+// ---------------------------------------------------------------------------
+.cta-card {
+  background-color: $dark;
+  color: #fff;
+  border-radius: $border-radius-lg;
+  padding: 4rem 2rem;
   text-align: center;
 }
 
-.progress {
-  transform-origin: left;
-  & > * {
-    transform: scaleX(0);
-  }
+.cta-card .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-left: auto;
+  margin-right: auto;
 }
-.progress-bar-animation {
-  @extend .progress;
-  & > * {
-    animation: progress 1.5s ease-in-out forwards;
+
+.footer {
+  background-color: $dark;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2.5rem 0;
+  font-size: 0.9rem;
+
+  a {
+    color: rgba(255, 255, 255, 0.85);
   }
 }
