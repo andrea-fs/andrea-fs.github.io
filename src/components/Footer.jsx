@@ -26,7 +26,7 @@ const Footer = () => {
         </p>
         <p className="mb-0">
           <small>
-            Built with React. Project code is open source — feel free to fork
+            Built with React. Project code is open source, feel free to fork
             and make your own version.
           </small>
         </p>

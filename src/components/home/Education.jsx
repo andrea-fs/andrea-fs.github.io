@@ -17,7 +17,7 @@ const Education = ({ heading, data }) => {
                 <span className="timeline-date">{item.date}</span>
                 <h3 className="timeline-title">{item.degree}</h3>
                 <p className="timeline-subtitle">
-                  {item.institution} — {item.location}
+                  {item.institution}, {item.location}
                 </p>
                 <p className="text-secondary mb-0">{item.description}</p>
               </div>

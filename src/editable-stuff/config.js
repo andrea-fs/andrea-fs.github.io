@@ -9,9 +9,9 @@ const mainBody = {
   middleName: "",
   lastName: "Fossà",
   tagline:
-    "MS Student in Artificial Intelligence at the University of Bologna — building intelligent systems at the intersection of AI, neuroscience and bioinformatics.",
+    "MS Student in Artificial Intelligence at the University of Bologna, building intelligent systems at the intersection of AI, neuroscience and bioinformatics.",
   backgroundImage:
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=2000&q=80",
+    "https://images.unsplash.com/photo-1655720828018-edd2daec9349?w=2000&q=80",
   icons: [
     {
       image: "fa-github",
@@ -35,7 +35,7 @@ const about = {
   imageLink: require("../editable-stuff/profile.png"),
   imageSize: 375,
   message:
-    "I'm an MS student in Artificial Intelligence at the University of Bologna, with a background in Bioinformatics from the University of Verona. My work sits at the intersection of deep learning, neuroscience and biological data — from EEG-based brain-computer interfaces to genomics and medical imaging. I'm currently working as a Consultant at Reply, after research internships at Fondazione Bruno Kessler (E3DA Lab) and BraiNavLab. Based in Roncà, Italy, I'm always curious about how AI can be applied responsibly to real-world, human-centered problems.",
+    "I'm an MS student in Artificial Intelligence at the University of Bologna, with a background in Bioinformatics from the University of Verona. My work sits at the intersection of deep learning, neuroscience and biological data, from EEG-based brain-computer interfaces to genomics and medical imaging. I'm currently working as a Consultant at Reply, after research internships at Fondazione Bruno Kessler (E3DA Lab) and BraiNavLab. Based in Roncà, Italy, I'm always curious about how AI can be applied responsibly to real-world, human-centered problems.",
   resume: require("../editable-stuff/resume.pdf"),
 };
 
@@ -85,7 +85,7 @@ const repos = {
     {
       title: "Advanced NLP Pipeline for Unstructured Text Analysis",
       description:
-        "End-to-end NLP pipeline using Transformers (BERT/RoBERTa) and LLMs for semantic analysis and classification of noisy, unstructured text — including data cleaning, tokenization, preprocessing and fine-tuning for information extraction.",
+        "End-to-end NLP pipeline using Transformers (BERT/RoBERTa) and LLMs for semantic analysis and classification of noisy, unstructured text, including data cleaning, tokenization, preprocessing and fine-tuning for information extraction.",
       tags: ["NLP", "Transformers", "BERT", "LLMs"],
       image:
         "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
@@ -128,7 +128,7 @@ const repos = {
       link: "https://github.com/andrea-fs", // TODO: replace with the repo link
     },
     {
-      title: "From Scratch AI — Detecting Objects: Classic & NN",
+      title: "From Scratch AI: Detecting Objects, Classic & NN",
       description:
         "Object detection implemented from scratch, comparing classical computer vision approaches against neural-network-based methods.",
       tags: ["Computer Vision", "From Scratch", "Object Detection"],
@@ -137,7 +137,7 @@ const repos = {
       link: "https://github.com/andrea-fs", // TODO: replace with the repo link
     },
     {
-      title: "Multi-Courier Planning — Combinatorial Optimization",
+      title: "Multi-Courier Planning: Combinatorial Optimization",
       description:
         "Combinatorial decision making and optimization models for the multiple courier planning problem.",
       tags: ["Optimization", "Combinatorial Decision Making"],
@@ -211,21 +211,20 @@ const gallery = {
   items: [
     {
       img: require("../editable-stuff/algo.png"),
-      label: "Focus mode",
+      label: "History & geopolitics",
       paragraph:
-        "Working through algorithms outdoors — laptop, headphones and a good book nearby.",
+        "Outside of work, I'm passionate about history and geopolitics, they give me a broader view of global dynamics and how the world moves.",
     },
     {
       img: require("../editable-stuff/calcio.png"),
       label: "On the pitch",
       paragraph:
-        "Playing football — teamwork and strategy off the screen too.",
+        "Playing football, teamwork and strategy off the screen too.",
     },
     {
       img: require("../editable-stuff/museum.png"),
       label: "Curiosity beyond tech",
-      paragraph:
-        "Exploring art and museums — a different kind of pattern recognition.",
+      paragraph: "Exploring art and museums whenever I get the chance.",
     },
   ],
 };
@@ -254,7 +253,7 @@ const experiences = {
     },
     {
       role: "AI Research Intern",
-      company: "Fondazione Bruno Kessler — E3DA Lab",
+      company: "Fondazione Bruno Kessler (E3DA Lab)",
       location: "Trento, Italy",
       date: "Mar 2025 – Sep 2025",
       description:

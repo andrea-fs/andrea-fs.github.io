@@ -17,7 +17,7 @@ const Experience = ({ heading, data }) => {
                 <span className="timeline-date">{item.date}</span>
                 <h3 className="timeline-title">{item.role}</h3>
                 <p className="timeline-subtitle">
-                  {item.company} — {item.location}
+                  {item.company}, {item.location}
                 </p>
                 <p className="text-secondary mb-0">{item.description}</p>
               </div>
