@@ -22,11 +22,11 @@
   --icon-moon: block;
   color-scheme: light;
 
-  /* Decorative green band with confetti (the canvas reads the confetti tokens). */
+  /* Decorative green bands (the canvas art reads the --art tokens). */
   --band: #2f6b4c;
-  --confetti-a: #f4d35e;
-  --confetti-b: #f9e29a;
-  --confetti-c: #e3b93c;
+  --art-a: #f4d35e;
+  --art-b: #f9e29a;
+  --art-c: #e3b93c;
 }
 
 /* Dark palette. Applies when the system is dark (unless the visitor forced light)
@@ -43,9 +43,9 @@
     --icon-sun: block;
     --icon-moon: none;
     --band: #1f4733;
-    --confetti-a: #e6c556;
-    --confetti-b: #efd98f;
-    --confetti-c: #cfa83a;
+    --art-a: #e6c556;
+    --art-b: #efd98f;
+    --art-c: #cfa83a;
     color-scheme: dark;
   }
 }
@@ -60,9 +60,9 @@
   --icon-sun: block;
   --icon-moon: none;
   --band: #1f4733;
-  --confetti-a: #e6c556;
-  --confetti-b: #efd98f;
-  --confetti-c: #cfa83a;
+  --art-a: #e6c556;
+  --art-b: #efd98f;
+  --art-c: #cfa83a;
   color-scheme: dark;
 }
 
@@ -265,7 +265,7 @@ h3 {
   letter-spacing: -0.005em;
 }
 
-/* Confetti bands: full-bleed, purely decorative */
+/* Art bands: full-bleed, purely decorative */
 .band {
   position: relative;
   height: clamp(120px, 17vw, 210px);
