@@ -49,7 +49,7 @@
   // of light travelling along a link now and then.
   const network = {
     init(st) {
-      const n = Math.min(44, Math.max(10, Math.round((st.w * st.h) / 9000)));
+      const n = Math.min(90, Math.max(10, Math.round((st.w * st.h) / 9000)));
       st.reach = Math.min(190, Math.max(110, st.w * 0.2));
       st.pulses = [];
       st.nodes = Array.from({ length: n }, () => {
@@ -67,7 +67,7 @@
       }
       for (const q of st.pulses) q.t += dt / q.dur;
       st.pulses = st.pulses.filter((q) => q.t < 1);
-      if (Math.random() < dt * 0.9 * (st.w / 1000)) {
+      if (st.pulses.length < 14 && Math.random() < dt * 0.9 * ((st.w * st.h) / 190000)) {
         const a = st.nodes[Math.floor(Math.random() * st.nodes.length)];
         const near = st.nodes.filter((b) => b !== a && Math.hypot(a.x - b.x, a.y - b.y) < st.reach * 0.9);
         if (near.length) st.pulses.push({ a, b: near[Math.floor(Math.random() * near.length)], t: 0, dur: rand(0.9, 1.6) });

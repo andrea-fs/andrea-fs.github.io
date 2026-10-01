@@ -102,31 +102,38 @@
       </div>
     </section>
 
-    <div class="band" data-art="network" aria-hidden="true"><canvas></canvas></div>
+    <!-- Green dive: the band expands to fill the screen while you scroll, the research
+         interests appear inside it, then it contracts back. Without scroll-driven
+         animation support (or on small screens) it is a plain band followed by the section. -->
+    <div class="dive">
+      <div class="dive__stage">
+        <div class="dive__bg" data-art="network" aria-hidden="true"><canvas></canvas></div>
 
-    <section class="section" id="research">
-      <div class="wrap">
-        <h2 class="reveal">Research interests</h2>
-        <div class="topics">
-          <div class="topic reveal">
-            <h3>Brain-computer interfaces</h3>
-            <p>Decoding EEG, and how much a model depends on the subject it was trained on.</p>
+        <section class="section dive__content" id="research">
+          <div class="wrap">
+            <h2>Research interests</h2>
+            <div class="topics">
+              <div class="topic">
+                <h3>Brain-computer interfaces</h3>
+                <p>Decoding EEG, and how much a model depends on the subject it was trained on.</p>
+              </div>
+              <div class="topic">
+                <h3>Biosignals on the edge</h3>
+                <p>Running deep learning on EEG with the constraints of embedded hardware.</p>
+              </div>
+              <div class="topic">
+                <h3>Language and biomedicine</h3>
+                <p>Transformers, named entity recognition and ontologies for clinical and biological text.</p>
+              </div>
+              <div class="topic">
+                <h3>Computer vision</h3>
+                <p>Segmentation of satellite imagery and of unexpected objects in driving scenes.</p>
+              </div>
+            </div>
           </div>
-          <div class="topic reveal">
-            <h3>Biosignals on the edge</h3>
-            <p>Running deep learning on EEG with the constraints of embedded hardware.</p>
-          </div>
-          <div class="topic reveal">
-            <h3>Language and biomedicine</h3>
-            <p>Transformers, named entity recognition and ontologies for clinical and biological text.</p>
-          </div>
-          <div class="topic reveal">
-            <h3>Computer vision</h3>
-            <p>Segmentation of satellite imagery and of unexpected objects in driving scenes.</p>
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </div>
 
     <section class="section" id="experience">
       <div class="wrap">

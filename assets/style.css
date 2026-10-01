@@ -299,19 +299,89 @@ h3 {
   letter-spacing: -0.005em;
 }
 
-/* Art bands: full-bleed, purely decorative */
-.band {
+/* Green dive ---------------------------------------------------------
+   Base (fallback): a full-bleed band with the network, followed by the research section.
+   Enhanced: the band expands to fill the screen as you scroll, the section appears inside
+   it, then it contracts again. Driven by a CSS scroll timeline, so no scroll listeners. */
+.dive__bg {
   position: relative;
   height: clamp(120px, 17vw, 210px);
   background: var(--band);
   overflow: hidden;
 }
-.band canvas {
+.dive__bg canvas {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (min-height: 600px) {
+    .dive {
+      height: 300vh;
+      margin-block: -14vh;
+      view-timeline: --dive block;
+    }
+    .dive__stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* The green layer: starts as the band (a slice in the middle), fills the screen, then shrinks back. */
+    .dive__bg {
+      --bh: clamp(120px, 17vw, 210px);
+      position: absolute;
+      inset: 0;
+      height: auto;
+      clip-path: inset(calc(50% - var(--bh) / 2) 0);
+      animation: dive-clip linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-clip {
+      0%       { clip-path: inset(calc(50% - var(--bh) / 2) 0); }
+      30%, 70% { clip-path: inset(0 0); }
+      100%     { clip-path: inset(calc(50% - var(--bh) / 2) 0); }
+    }
+
+    /* The network calms down while text sits on top of it. */
+    .dive__bg canvas {
+      animation: dive-dim linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-dim {
+      0%, 28%   { opacity: 1; }
+      40%, 60%  { opacity: 0.5; }
+      72%, 100% { opacity: 1; }
+    }
+
+    /* The research section sits on the green, with light text, and fades in once it is full. */
+    .dive__content {
+      --text: #f3f6f0;
+      --muted: #d6e6dc;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      padding-block: 56px 0;
+      color: var(--text);
+      opacity: 0;
+      animation: dive-content linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-content {
+      0%, 26%   { opacity: 0; transform: translateY(28px); }
+      38%, 62%  { opacity: 1; transform: none; }
+      74%, 100% { opacity: 0; transform: translateY(-20px); }
+    }
+  }
 }
 
 /* About */
