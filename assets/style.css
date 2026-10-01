@@ -28,6 +28,12 @@
   --art-b: #f9e29a;
   --art-c: #e3b93c;
   --field: #2f6b4c; /* hero waves, heartbeat line */
+
+  /* Wine red band (Selected work). light-dark() follows the color-scheme set per theme below. */
+  --wine: light-dark(#6d1f2f, #4a1722);
+  --wine-a: light-dark(#f2b8bf, #e6a3ac);
+  --wine-b: light-dark(#f7d6d3, #efc2c0);
+  --wine-c: light-dark(#e98d9a, #cf7482);
 }
 
 /* Dark palette. Applies when the system is dark (unless the visitor forced light)
@@ -299,19 +305,110 @@ h3 {
   letter-spacing: -0.005em;
 }
 
-/* Art bands: full-bleed, purely decorative */
-.band {
+/* Green dive ---------------------------------------------------------
+   Base (fallback): a full-bleed band with the network, followed by the research section.
+   Enhanced: the band expands to fill the screen as you scroll, the section appears inside
+   it, then it contracts again. Driven by a CSS scroll timeline, so no scroll listeners. */
+.dive__bg {
   position: relative;
   height: clamp(120px, 17vw, 210px);
   background: var(--band);
   overflow: hidden;
 }
-.band canvas {
+.dive__bg canvas {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+}
+
+/* Selected work uses the wine palette. The canvas art reads these tokens from its own element. */
+.dive--work {
+  --band: var(--wine);
+  --art-a: var(--wine-a);
+  --art-b: var(--wine-b);
+  --art-c: var(--wine-c);
+  --field: var(--wine-a);
+}
+.section--projects { padding-block: clamp(3rem, 6vw, 5rem) var(--section); }
+.section--projects .projects { margin-top: 0; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (min-height: 600px) {
+    .dive {
+      height: 300vh;
+      margin-block: -14vh;
+      view-timeline: --dive block;
+    }
+    .dive__stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* The green layer: starts as the band (a slice in the middle), fills the screen, then shrinks back. */
+    .dive__bg {
+      --bh: clamp(120px, 17vw, 210px);
+      position: absolute;
+      inset: 0;
+      height: auto;
+      clip-path: inset(calc(50% - var(--bh) / 2) 0);
+      animation: dive-clip linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-clip {
+      0%       { clip-path: inset(calc(50% - var(--bh) / 2) 0); }
+      30%, 70% { clip-path: inset(0 0); }
+      100%     { clip-path: inset(calc(50% - var(--bh) / 2) 0); }
+    }
+
+    /* The network calms down while text sits on top of it. */
+    .dive__bg canvas {
+      animation: dive-dim linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-dim {
+      0%, 28%   { opacity: 1; }
+      40%, 60%  { opacity: 0.5; }
+      72%, 100% { opacity: 1; }
+    }
+
+    /* The research section sits on the green, with light text, and fades in once it is full. */
+    .dive__content {
+      --text: #f3f6f0;
+      --muted: #d6e6dc;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      padding-block: 56px 0;
+      color: var(--text);
+      opacity: 0;
+      animation: dive-content linear both;
+      animation-timeline: --dive;
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes dive-content {
+      0%, 26%   { opacity: 0; transform: translateY(28px); pointer-events: none; }
+      38%, 62%  { opacity: 1; transform: none; pointer-events: auto; }
+      74%, 100% { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+    }
+
+    /* Selected work: warm light text, and a link colour that works on wine red. */
+    .dive--work .dive__content {
+      --text: #f6ece8;
+      --muted: #e8d2cd;
+      --accent: #f7d6d3;
+      --line: rgb(255 255 255 / 0.28);
+    }
+    /* Nav link "Work" should land in the middle of the dive, where the content is visible. */
+    .dive--work { scroll-margin-top: -100vh; }
+  }
 }
 
 /* About */

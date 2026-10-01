@@ -27,7 +27,7 @@
   });
 })();
 
-// Canvas art: a sparse neural network, hero waves and a heartbeat line.
+// Canvas art: neural network, synapses, hero waves and a heartbeat line.
 // One shared loop that runs only while a band is on screen; a single still frame
 // under prefers-reduced-motion. Colours come from the --art tokens (theme aware).
 (() => {
@@ -39,17 +39,26 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const smooth = (x) => { const c = Math.min(1, Math.max(0, x)); return c * c * (3 - 2 * c); };
 
-  let colors = ['#f4d35e', '#f9e29a', '#e3b93c', '#2f6b4c', '#d9d9de'];
-  const readColors = () => {
-    const s = getComputedStyle(document.documentElement);
-    colors = ['--art-a', '--art-b', '--art-c', '--field', '--line'].map((v, i) => s.getPropertyValue(v).trim() || colors[i]);
+  // Each canvas reads its colours from its own element, so a band can override the --art tokens
+  // (the wine red section does). A probe element turns var() and light-dark() into plain rgb.
+  const FALLBACK = ['#f4d35e', '#f9e29a', '#e3b93c', '#2f6b4c', '#d9d9de'];
+  let colors = FALLBACK;
+  const readColors = (st) => {
+    const probe = document.createElement('i');
+    probe.style.display = 'none';
+    st.canvas.parentElement.append(probe);
+    st.colors = ['--art-a', '--art-b', '--art-c', '--field', '--line'].map((v, i) => {
+      probe.style.color = `var(${v})`;
+      return getComputedStyle(probe).color || FALLBACK[i];
+    });
+    probe.remove();
   };
 
   // Sparse network: drifting nodes, faint links between neighbours, and small pulses
   // of light travelling along a link now and then.
   const network = {
     init(st) {
-      const n = Math.min(44, Math.max(10, Math.round((st.w * st.h) / 9000)));
+      const n = Math.min(90, Math.max(10, Math.round((st.w * st.h) / 9000)));
       st.reach = Math.min(190, Math.max(110, st.w * 0.2));
       st.pulses = [];
       st.nodes = Array.from({ length: n }, () => {
@@ -67,7 +76,7 @@
       }
       for (const q of st.pulses) q.t += dt / q.dur;
       st.pulses = st.pulses.filter((q) => q.t < 1);
-      if (Math.random() < dt * 0.9 * (st.w / 1000)) {
+      if (st.pulses.length < 14 && Math.random() < dt * 0.9 * ((st.w * st.h) / 190000)) {
         const a = st.nodes[Math.floor(Math.random() * st.nodes.length)];
         const near = st.nodes.filter((b) => b !== a && Math.hypot(a.x - b.x, a.y - b.y) < st.reach * 0.9);
         if (near.length) st.pulses.push({ a, b: near[Math.floor(Math.random() * near.length)], t: 0, dur: rand(0.9, 1.6) });
@@ -216,7 +225,118 @@
     },
   };
 
-  const arts = { network, field, pulse };
+  // Synapses: small neurons with fine branching dendrites. Impulses travel from a cell body
+  // out to a branch tip, where a soft ring flashes like a synaptic release.
+  const synapse = {
+    grow(cx, cy) {
+      const nodes = [{ x: cx, y: cy, parent: -1, depth: 0, ph: rand(0, TAU), amp: 0 }];
+      const tips = [];
+      const branch = (from, angle, depth, steps) => {
+        let prev = from;
+        for (let k = 0; k < steps; k++) {
+          const p = nodes[prev];
+          angle += rand(-0.4, 0.4);
+          const len = rand(12, 26) * (1 - depth * 0.12);
+          nodes.push({ x: p.x + Math.cos(angle) * len, y: p.y + Math.sin(angle) * len, parent: prev, depth, ph: rand(0, TAU), amp: 0 });
+          prev = nodes.length - 1;
+          if (depth < 3 && k >= 1 && k < steps - 1 && nodes.length < 110 && Math.random() < 0.32) {
+            branch(prev, angle + (Math.random() < 0.5 ? -1 : 1) * rand(0.45, 0.9), depth + 1, Math.max(2, steps - 2 - k));
+          }
+        }
+        tips.push(prev);
+      };
+      const n = Math.floor(rand(4, 7));
+      for (let i = 0; i < n; i++) branch(0, (i / n) * TAU + rand(-0.3, 0.3), 0, Math.floor(rand(4, 8)));
+      for (const nd of nodes) nd.amp = Math.min(3.2, Math.hypot(nd.x - cx, nd.y - cy) * 0.025);
+      return { nodes, tips, pos: nodes.map((nd) => ({ x: nd.x, y: nd.y })) };
+    },
+    init(st) {
+      const count = Math.min(10, Math.max(2, Math.round((st.w * st.h) / 80000)));
+      const cols = Math.max(1, Math.round(Math.sqrt((count * st.w) / st.h)));
+      const rows = Math.ceil(count / cols);
+      st.cells = Array.from({ length: count }, (_, i) =>
+        synapse.grow(((i % cols) + rand(0.25, 0.75)) * (st.w / cols), (Math.floor(i / cols) + rand(0.25, 0.75)) * (st.h / rows)));
+      st.pulses = [];
+      st.rings = [];
+    },
+    step(st, dt) {
+      for (const q of st.pulses) q.t += dt / q.dur;
+      for (const q of st.pulses) {
+        if (q.t < 1) continue;
+        const tip = q.cell.pos[q.path[q.path.length - 1]];
+        st.rings.push({ x: tip.x, y: tip.y, t: 0 });
+      }
+      st.pulses = st.pulses.filter((q) => q.t < 1);
+      for (const r of st.rings) r.t += dt / 0.9;
+      st.rings = st.rings.filter((r) => r.t < 1);
+      if (st.pulses.length < 12 && Math.random() < dt * 0.7 * ((st.w * st.h) / 190000)) {
+        const cell = st.cells[Math.floor(Math.random() * st.cells.length)];
+        const path = [];
+        for (let i = cell.tips[Math.floor(Math.random() * cell.tips.length)]; i >= 0; i = cell.nodes[i].parent) path.push(i);
+        path.reverse();
+        let total = 0;
+        const lens = path.map((id, k) => (k ? (total += Math.hypot(cell.pos[id].x - cell.pos[path[k - 1]].x, cell.pos[id].y - cell.pos[path[k - 1]].y)) : 0));
+        st.pulses.push({ cell, path, lens, total, t: 0, dur: 0.8 + total / 220 });
+      }
+    },
+    draw(st, t) {
+      const { ctx } = st;
+      ctx.lineCap = 'round';
+      for (const cell of st.cells) {
+        cell.nodes.forEach((nd, i) => {
+          cell.pos[i].x = nd.x + Math.sin(t * 0.5 + nd.ph) * nd.amp;
+          cell.pos[i].y = nd.y + Math.cos(t * 0.42 + nd.ph) * nd.amp * 0.8;
+        });
+        ctx.strokeStyle = colors[1];
+        for (let d = 0; d <= 3; d++) {
+          ctx.lineWidth = Math.max(0.45, 1.25 - d * 0.25);
+          ctx.globalAlpha = 0.58 - d * 0.1;
+          ctx.beginPath();
+          cell.nodes.forEach((nd, i) => {
+            if (nd.depth !== d || nd.parent < 0) return;
+            ctx.moveTo(cell.pos[nd.parent].x, cell.pos[nd.parent].y);
+            ctx.lineTo(cell.pos[i].x, cell.pos[i].y);
+          });
+          ctx.stroke();
+        }
+        ctx.fillStyle = colors[1];
+        ctx.globalAlpha = 0.8;
+        for (const i of cell.tips) {
+          ctx.beginPath();
+          ctx.arc(cell.pos[i].x, cell.pos[i].y, 1.3, 0, TAU);
+          ctx.fill();
+        }
+        const soma = cell.pos[0];
+        ctx.fillStyle = colors[0];
+        ctx.globalAlpha = 0.16;
+        ctx.beginPath(); ctx.arc(soma.x, soma.y, 11, 0, TAU); ctx.fill();
+        ctx.globalAlpha = 0.95;
+        ctx.beginPath(); ctx.arc(soma.x, soma.y, 4.2, 0, TAU); ctx.fill();
+      }
+      for (const q of st.pulses) {
+        const d = q.t * q.total;
+        let k = 1;
+        while (k < q.lens.length - 1 && q.lens[k] < d) k++;
+        const a = q.cell.pos[q.path[k - 1]], b = q.cell.pos[q.path[k]];
+        const f = Math.min(1, Math.max(0, (d - q.lens[k - 1]) / Math.max(1e-6, q.lens[k] - q.lens[k - 1])));
+        const x = a.x + (b.x - a.x) * f, y = a.y + (b.y - a.y) * f;
+        ctx.fillStyle = colors[1];
+        ctx.globalAlpha = 0.28; ctx.beginPath(); ctx.arc(x, y, 7, 0, TAU); ctx.fill();
+        ctx.globalAlpha = 0.95; ctx.beginPath(); ctx.arc(x, y, 2.2, 0, TAU); ctx.fill();
+      }
+      ctx.strokeStyle = colors[1];
+      ctx.lineWidth = 1;
+      for (const r of st.rings) {
+        ctx.globalAlpha = 0.55 * (1 - r.t);
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, 3 + r.t * 16, 0, TAU);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    },
+  };
+
+  const arts = { network, synapse, field, pulse };
   const states = canvases.map((canvas) => ({
     canvas,
     ctx: canvas.getContext('2d'),
@@ -225,6 +345,7 @@
   }));
 
   const render = (st, t) => {
+    colors = st.colors;
     st.ctx.clearRect(0, 0, st.w, st.h);
     st.art.draw(st, t);
   };
@@ -241,11 +362,9 @@
   };
 
   const now = () => performance.now() / 1000;
-  readColors();
-  states.forEach((st) => { resize(st); render(st, now()); });
+  states.forEach((st) => { readColors(st); resize(st); render(st, now()); });
   document.addEventListener('themechange', () => {
-    readColors();
-    states.forEach((st) => render(st, now()));
+    states.forEach((st) => { readColors(st); render(st, now()); });
   });
 
   const ro = new ResizeObserver((entries) => {
@@ -289,7 +408,7 @@
 // Highlight the nav link of the section currently in view.
 (() => {
   const links = [...document.querySelectorAll('.nav nav a[href^="#"]')];
-  const sections = [...document.querySelectorAll('main section[id]')];
+  const sections = [...document.querySelectorAll('main section[id], main .dive[id]')];
   if (!('IntersectionObserver' in window) || !links.length) return;
   const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
   const io = new IntersectionObserver(
