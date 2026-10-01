@@ -192,16 +192,28 @@
       </div>
     </section>
 
-    <section class="section" id="work">
+    <!-- Second dive, in wine red with synapses: the paper takes the full screen, the rest of the
+         projects follow as a normal list. The id is on the wrapper so the nav link lands mid-dive. -->
+    <div class="dive dive--work" id="work">
+      <div class="dive__stage">
+        <div class="dive__bg" data-art="synapse" aria-hidden="true"><canvas></canvas></div>
+
+        <section class="section dive__content" aria-label="Selected work">
+          <div class="wrap">
+            <h2>Selected work</h2>
+
+            <a class="feature" href="https://arxiv.org/abs/2509.23247">
+              <span class="feature__label">Paper</span>
+              <span class="feature__title">Explicit modelling of subject dependency in BCI decoding</span>
+              <span class="feature__link">Read on arXiv <span aria-hidden="true">↗</span></span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="section section--projects" aria-label="More projects">
       <div class="wrap">
-        <h2 class="reveal">Selected work</h2>
-
-        <a class="feature reveal" href="https://arxiv.org/abs/2509.23247">
-          <span class="feature__label">Paper</span>
-          <span class="feature__title">Explicit modelling of subject dependency in BCI decoding</span>
-          <span class="feature__link">Read on arXiv <span aria-hidden="true">↗</span></span>
-        </a>
-
         <ul class="projects">
           <li class="reveal">
             <a href="https://github.com/SangioAI/NLP_Assignments">
