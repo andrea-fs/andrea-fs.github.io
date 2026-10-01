@@ -27,7 +27,7 @@
   });
 })();
 
-// Canvas art: EEG-like traces, a sparse neural network, hero waves and a heartbeat line.
+// Canvas art: a sparse neural network, hero waves and a heartbeat line.
 // One shared loop that runs only while a band is on screen; a single still frame
 // under prefers-reduced-motion. Colours come from the --art tokens (theme aware).
 (() => {
@@ -43,49 +43,6 @@
   const readColors = () => {
     const s = getComputedStyle(document.documentElement);
     colors = ['--art-a', '--art-b', '--art-c', '--field', '--line'].map((v, i) => s.getPropertyValue(v).trim() || colors[i]);
-  };
-
-  // Biosignal traces: a few channels, each a sum of slow, mid and fast rhythms with a
-  // slowly breathing envelope, travelling right to left like a live recording.
-  const eeg = {
-    init(st) {
-      const n = st.w < 520 ? 4 : 6;
-      st.chan = Array.from({ length: n }, (_, i) => ({
-        comps: [
-          { k: rand(0.9, 1.6), w: rand(0.35, 0.7), a: 1, p: rand(0, TAU) },
-          { k: rand(3, 5), w: rand(1.0, 1.8), a: rand(0.35, 0.6), p: rand(0, TAU) },
-          { k: rand(9, 14), w: rand(2.5, 4), a: rand(0.1, 0.22), p: rand(0, TAU) },
-        ],
-        env: { k: rand(0.5, 1.2), w: rand(0.15, 0.35), p: rand(0, TAU) },
-        alpha: 0.95 - (i / Math.max(1, n - 1)) * 0.5,
-        color: i % 2 ? 1 : 0,
-      }));
-    },
-    draw(st, t) {
-      const { ctx, w, h, chan } = st;
-      const gap = h / (chan.length + 1);
-      const amp = Math.min(gap * 0.8, 22);
-      ctx.lineWidth = 1.4;
-      ctx.lineJoin = 'round';
-      ctx.lineCap = 'round';
-      chan.forEach((c, i) => {
-        ctx.globalAlpha = c.alpha;
-        ctx.strokeStyle = colors[c.color];
-        ctx.beginPath();
-        const y0 = gap * (i + 1);
-        for (let x = 0; x <= w; x += 3) {
-          const u = (x / w) * TAU;
-          let v = 0;
-          for (const m of c.comps) v += m.a * Math.sin(m.k * u + m.w * t + m.p);
-          const burst = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(c.env.k * u + c.env.w * t + c.env.p));
-          const edge = smooth(x / (w * 0.12)) * smooth((w - x) / (w * 0.12));
-          const y = y0 + (v / 1.6) * amp * burst * edge;
-          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-    },
   };
 
   // Sparse network: drifting nodes, faint links between neighbours, and small pulses
@@ -259,7 +216,7 @@
     },
   };
 
-  const arts = { eeg, network, field, pulse };
+  const arts = { network, field, pulse };
   const states = canvases.map((canvas) => ({
     canvas,
     ctx: canvas.getContext('2d'),
