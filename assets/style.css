@@ -27,6 +27,7 @@
   --art-a: #f4d35e;
   --art-b: #f9e29a;
   --art-c: #e3b93c;
+  --field: #2f6b4c; /* hero waves, heartbeat line */
 }
 
 /* Dark palette. Applies when the system is dark (unless the visitor forced light)
@@ -46,6 +47,7 @@
     --art-a: #e6c556;
     --art-b: #efd98f;
     --art-c: #cfa83a;
+  --field: #6fbf93;
     color-scheme: dark;
   }
 }
@@ -63,6 +65,7 @@
   --art-a: #e6c556;
   --art-b: #efd98f;
   --art-c: #cfa83a;
+  --field: #6fbf93;
   color-scheme: dark;
 }
 
@@ -208,15 +211,46 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
   transition: color 0.2s var(--ease);
 }
-.nav nav a:hover { color: var(--text); }
+.nav nav a:hover,
+.nav nav a[aria-current] { color: var(--text); }
+
+/* Reading progress: a hairline under the nav, driven by the page scroll.
+   Pure CSS scroll-driven animation, so it simply does not show where unsupported. */
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .nav::after { animation: read-progress linear both; animation-timeline: scroll(root); }
+    @keyframes read-progress { to { transform: scaleX(1); } }
+  }
+}
 
 /* Hero -------------------------------------------------------------- */
 .hero {
+  position: relative;
+  overflow: hidden;
   min-height: calc(100dvh - 56px);
   display: flex;
   align-items: center;
   padding-block: 3rem 7rem;
 }
+.hero .wrap { position: relative; }
+.hero__art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero__art canvas { display: block; width: 100%; height: 100%; }
 
 .hero__name {
   font-family: var(--display);
@@ -289,7 +323,7 @@ h3 {
   letter-spacing: -0.02em;
   max-width: 28em;
 }
-.statement span { color: var(--muted); }
+.statement__rest { color: var(--muted); }
 
 /* Research */
 .topics {
@@ -364,6 +398,22 @@ h3 {
   transition: color 0.2s var(--ease);
 }
 .projects a:hover .projects__title { color: var(--accent); }
+.projects__title::after,
+.feature__link span {
+  display: inline-block;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.projects__title::after {
+  content: "\2197";
+  margin-left: 0.35em;
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.projects a:hover .projects__title::after,
+.projects a:focus-visible .projects__title::after { opacity: 1; transform: none; }
+.feature:hover .feature__link span { transform: translate(2px, -2px); }
+.feature:hover .feature__title { transform: translateX(8px); }
+.feature__title { transition: color 0.3s var(--ease), transform 0.5s var(--ease); }
 .projects__desc { display: block; margin-top: 0.4rem; color: var(--muted); max-width: 40ch; }
 
 /* Tools */
@@ -393,8 +443,11 @@ h3 {
 .contact__mail:hover { color: var(--accent); }
 .contact__links { display: flex; gap: 1.75rem; margin-top: 2rem; }
 
-.footer { padding-block: 2.5rem 3rem; color: var(--muted); font-size: 0.875rem; }
-.footer .wrap { border-top: 1px solid var(--line); padding-top: 1.5rem; }
+/* Heartbeat line above the footer: a flat line with an ECG beat gliding along it. */
+.pulse { position: relative; height: 80px; margin-top: clamp(1rem, 4vw, 3rem); }
+.pulse canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+.footer { padding-block: 1rem 3rem; color: var(--muted); font-size: 0.875rem; }
 
 /* Motion: entry reveal. Only active with JS, collapses under reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
@@ -415,6 +468,19 @@ h3 {
   .js .hero .wrap > :nth-child(4) { animation-delay: 0.32s; }
 
   @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* Hero waves fade in after the text has risen. */
+  .js .hero__art { opacity: 0; animation: fade-in 1.8s ease 0.35s forwards; }
+  @keyframes fade-in { to { opacity: 1; } }
+
+  /* About statement: words light up one after another once it scrolls into view. */
+  .js .statement.reveal { opacity: 1; transform: none; }
+  .js .statement .w {
+    opacity: 0.16;
+    transition: opacity 0.7s var(--ease);
+    transition-delay: calc(var(--i) * 26ms);
+  }
+  .js .statement.is-in .w { opacity: 1; }
 }
 
 /* Smooth colour change right after the toggle is used (class set from main.js). */

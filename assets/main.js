@@ -27,11 +27,11 @@
   });
 })();
 
-// Art bands: EEG-like biosignal traces and a sparse neural network, drawn on canvas.
+// Canvas art: EEG-like traces, a sparse neural network, hero waves and a heartbeat line.
 // One shared loop that runs only while a band is on screen; a single still frame
 // under prefers-reduced-motion. Colours come from the --art tokens (theme aware).
 (() => {
-  const canvases = [...document.querySelectorAll('.band canvas')];
+  const canvases = [...document.querySelectorAll('[data-art] canvas')];
   if (!canvases.length) return;
 
   const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -39,10 +39,10 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const smooth = (x) => { const c = Math.min(1, Math.max(0, x)); return c * c * (3 - 2 * c); };
 
-  let colors = ['#f4d35e', '#f9e29a', '#e3b93c'];
+  let colors = ['#f4d35e', '#f9e29a', '#e3b93c', '#2f6b4c', '#d9d9de'];
   const readColors = () => {
     const s = getComputedStyle(document.documentElement);
-    colors = ['--art-a', '--art-b', '--art-c'].map((v, i) => s.getPropertyValue(v).trim() || colors[i]);
+    colors = ['--art-a', '--art-b', '--art-c', '--field', '--line'].map((v, i) => s.getPropertyValue(v).trim() || colors[i]);
   };
 
   // Biosignal traces: a few channels, each a sum of slow, mid and fast rhythms with a
@@ -153,7 +153,113 @@
     },
   };
 
-  const arts = { eeg, network };
+  // Hero waves: layered thin ribbons that drift slowly on the right of the hero and
+  // fade out towards the text. They swell gently around the pointer (fine pointers only).
+  const field = {
+    init(st) {
+      st.n = st.w < 700 ? 9 : 16;
+      st.px = st.tx = st.w * 0.7;
+      st.py = st.ty = st.h * 0.5;
+      st.pw = st.tw = 0;
+      st.waves = [
+        { k: rand(1.0, 1.4), w: 0.22, a: 1 },
+        { k: rand(2.3, 3.0), w: 0.38, a: 0.45 },
+        { k: rand(4.5, 6), w: 0.6, a: 0.18 },
+      ];
+      const hero = st.canvas.closest('section');
+      if (!st.bound && hero && !still && window.matchMedia('(pointer: fine)').matches) {
+        st.bound = true;
+        hero.addEventListener('pointermove', (e) => {
+          const r = st.canvas.getBoundingClientRect();
+          st.tx = e.clientX - r.left;
+          st.ty = e.clientY - r.top;
+          st.tw = 1;
+        }, { passive: true });
+        hero.addEventListener('pointerleave', () => { st.tw = 0; });
+      }
+    },
+    step(st, dt) {
+      st.pw += (st.tw - st.pw) * Math.min(1, dt * 2.5);
+      st.px += (st.tx - st.px) * Math.min(1, dt * 6);
+      st.py += (st.ty - st.py) * Math.min(1, dt * 6);
+    },
+    draw(st, t) {
+      const { ctx, w, h, n, waves } = st;
+      const narrow = w < 700;
+      const amp = h * 0.11;
+      ctx.lineWidth = 1.1;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = colors[3];
+      for (let i = 0; i < n; i++) {
+        const f = i / (n - 1);
+        const y0 = h * (0.3 + 0.62 * f);
+        ctx.globalAlpha = (0.1 + 0.28 * f) * (narrow ? 0.7 : 1);
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 4) {
+          const u = (x / w) * TAU;
+          let v = 0;
+          for (const m of waves) v += m.a * Math.sin(m.k * u + m.w * t + i * 0.32);
+          let y = y0 + v * amp * smooth((x / w - 0.08) / 0.6);
+          if (st.pw > 0.01) {
+            const dx = x - st.px, dy = y0 - st.py;
+            const near = Math.exp(-(dx * dx) / (2 * 170 * 170)) * Math.exp(-(dy * dy) / (2 * 120 * 120));
+            y += dy * 0.22 * near * st.pw;
+          }
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      // fade the left side so the name and text stay perfectly legible
+      const g = ctx.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, 'rgba(0,0,0,1)');
+      if (!narrow) g.addColorStop(0.35, 'rgba(0,0,0,0.9)');
+      g.addColorStop(narrow ? 0.9 : 0.7, 'rgba(0,0,0,0)');
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'source-over';
+    },
+  };
+
+  // Heartbeat: a flat line with one ECG complex gliding across it every few seconds.
+  const gauss = (r, c, wd, a) => a * Math.exp(-(((r - c) / wd) ** 2));
+  const beat = (r) =>
+    gauss(r, -0.72, 0.12, 0.14) + gauss(r, -0.1, 0.025, -0.18) + gauss(r, 0, 0.03, 1) +
+    gauss(r, 0.09, 0.03, -0.3) + gauss(r, 0.5, 0.13, 0.26);
+  const pulse = {
+    init() {},
+    draw(st, t) {
+      const { ctx, w, h } = st;
+      const y0 = h / 2;
+      const span = Math.min(130, w * 0.28);
+      const amp = h * 0.36;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = colors[4];
+      ctx.beginPath();
+      ctx.moveTo(0, y0);
+      ctx.lineTo(w, y0);
+      ctx.stroke();
+
+      const period = 6.5;
+      const head = still ? w * 0.62 : ((t % period) / period) * (w + 2 * span) - span;
+      const env = smooth(head / (w * 0.15)) * smooth((w - head) / (w * 0.15));
+      ctx.lineWidth = 1.5;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = colors[3];
+      ctx.globalAlpha = 0.95 * env;
+      ctx.beginPath();
+      for (let x = Math.max(0, head - span); x <= Math.min(w, head + span); x += 2) {
+        const y = y0 - beat((x - head) / span) * amp;
+        x <= Math.max(0, head - span) ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    },
+  };
+
+  const arts = { eeg, network, field, pulse };
   const states = canvases.map((canvas) => ({
     canvas,
     ctx: canvas.getContext('2d'),
@@ -221,6 +327,53 @@
     }
   });
   states.forEach((st) => io.observe(st.canvas));
+})();
+
+// Highlight the nav link of the section currently in view.
+(() => {
+  const links = [...document.querySelectorAll('.nav nav a[href^="#"]')];
+  const sections = [...document.querySelectorAll('main section[id]')];
+  if (!('IntersectionObserver' in window) || !links.length) return;
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        links.forEach((a) => a.removeAttribute('aria-current'));
+        const a = byId.get(e.target.id);
+        if (a) a.setAttribute('aria-current', 'true');
+      }
+    },
+    { rootMargin: '-45% 0px -50% 0px' }
+  );
+  sections.forEach((el) => io.observe(el));
+})();
+
+// Split the about statement into words so CSS can light them up one by one.
+(() => {
+  const el = document.querySelector('.statement');
+  if (!el) return;
+  let i = 0;
+  const walk = (node) => {
+    for (const child of [...node.childNodes]) {
+      if (child.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        for (const part of child.textContent.split(/(\s+)/)) {
+          if (!part) continue;
+          if (/^\s+$/.test(part)) { frag.append(part); continue; }
+          const span = document.createElement('span');
+          span.className = 'w';
+          span.style.setProperty('--i', i++);
+          span.textContent = part;
+          frag.append(span);
+        }
+        child.replaceWith(frag);
+      } else if (child.nodeType === 1) {
+        walk(child);
+      }
+    }
+  };
+  walk(el);
 })();
 
 // Reveal sections as they enter the viewport. Content stays visible without JS
