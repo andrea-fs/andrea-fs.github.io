@@ -352,7 +352,7 @@
 
   const resize = (st) => {
     const rect = st.canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, rect.width < 768 ? 1.5 : 2);
     st.w = rect.width;
     st.h = rect.height;
     st.canvas.width = Math.round(st.w * dpr);
