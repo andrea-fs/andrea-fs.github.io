@@ -21,7 +21,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Geist:wght@300..600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    /* Apply a saved theme before first paint to avoid a flash. */
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
 
   <script type="application/ld+json">
   {
@@ -47,12 +54,26 @@
   <header class="nav">
     <div class="wrap nav__inner">
       <a class="nav__brand" href="#top">Andrea Fossà</a>
-      <nav aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <div class="nav__right">
+        <nav aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <!-- Icons: Tabler Icons "sun" and "moon" (MIT). Hidden until JS runs, since the toggle needs it. -->
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch color theme" hidden>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z"/>
+            <path d="M6.343 17.657l-1.414 1.414"/><path d="M6.343 6.343l-1.414 -1.414"/>
+            <path d="M17.657 6.343l1.414 -1.414"/><path d="M17.657 17.657l1.414 1.414"/>
+            <path d="M4 12h-1"/><path d="M12 4v-1"/><path d="M20 12h1"/><path d="M12 20v1"/>
+          </svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
 

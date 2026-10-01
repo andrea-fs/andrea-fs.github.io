@@ -16,10 +16,17 @@
   --max: 1120px;
   --section: clamp(5rem, 12vw, 9rem);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Theme toggle shows the mode you would switch to. */
+  --icon-sun: none;
+  --icon-moon: block;
+  color-scheme: light;
 }
 
+/* Dark palette. Applies when the system is dark (unless the visitor forced light)
+   or when the visitor forced dark with the toggle. Keep both blocks identical. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #18181b;
     --text: #e4e4e7;
     --muted: #a1a1aa;
@@ -27,7 +34,22 @@
     --accent: #5aa9f5;
     --on-accent: #18181b;
     --nav-bg: rgb(24 24 27 / 0.75);
+    --icon-sun: block;
+    --icon-moon: none;
+    color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #18181b;
+  --text: #e4e4e7;
+  --muted: #a1a1aa;
+  --line: #2f2f35;
+  --accent: #5aa9f5;
+  --on-accent: #18181b;
+  --nav-bg: rgb(24 24 27 / 0.75);
+  --icon-sun: block;
+  --icon-moon: none;
+  color-scheme: dark;
 }
 
 /* Base -------------------------------------------------------------- */
@@ -135,6 +157,36 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500;
   letter-spacing: -0.01em;
 }
+
+.nav__right { display: flex; align-items: center; gap: clamp(0.75rem, 2.5vw, 1.5rem); }
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); }
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .i-sun { display: var(--icon-sun); }
+.theme-toggle .i-moon { display: var(--icon-moon); }
 
 .nav nav { display: flex; gap: clamp(0.9rem, 3vw, 2rem); }
 .nav nav a {
@@ -335,6 +387,13 @@ h3 {
   @keyframes rise { to { opacity: 1; transform: none; } }
 }
 
+/* Smooth colour change right after the toggle is used (class set from main.js). */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-anim, .theme-anim * {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
@@ -344,9 +403,21 @@ h3 {
   body { font-size: 1rem; }
   .nav nav a { font-size: 0.78rem; }
   .nav nav { gap: 0.9rem; }
+  .nav__right { gap: 0.5rem; }
   .nav__brand { font-size: 1.05rem; }
 
   .topics, .projects, .tools { grid-template-columns: 1fr; }
   .row { grid-template-columns: 1fr; gap: 0.35rem; padding-block: 1.5rem; }
   .actions { gap: 1.25rem; }
+}
+
+/* Very narrow phones: About is the first section under the hero, so drop its link to make room. */
+@media (max-width: 479px) {
+  .nav nav a[href="#about"] { display: none; }
+  .nav__inner { gap: 0.75rem; }
+  .nav__brand { font-size: 0.98rem; white-space: nowrap; }
+  .nav nav { gap: 0.7rem; }
+  .nav nav a { font-size: 0.75rem; }
+  .theme-toggle { width: 32px; height: 32px; }
+  .nav__right { gap: 0.25rem; }
 }
